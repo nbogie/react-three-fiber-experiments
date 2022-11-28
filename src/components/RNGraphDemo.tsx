@@ -7,21 +7,29 @@ import { Mesh, Vector3 } from 'three';
 export function RNGraphDemo() {
 
     const [opt, setOpt] = useState<number>(6);
+    const [selectedParticle, setSelectedParticle] = useState<number | null>(null);
     return (
         <div className="text-boxes-demo-container">
             <div className="react-controls">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(ix => (
-                    <React.Fragment key={ix}><h2 onClick={() => setOpt(ix)}>Hello: {ix}</h2><br /></React.Fragment>
+                    <React.Fragment key={ix}><h2 onClick={() => {
+                        setOpt(ix)
+                        setSelectedParticle(null)
+                    }
+                    }
+                    >Hello: {ix}</h2><br /></React.Fragment>
                 )
                 )}
                 <hr />
-                Selected: {opt}
+                Selected: {opt}<hr />
+                Particle: {selectedParticle}<hr />
             </div>
             <div className="canvas-container">
                 <Canvas>
                     <OrbitControls autoRotate={false} />
                     <Stage>
-                        <CubesSet numCubes={opt * 10} />
+                        <CubesSet
+                            selectedParticle={selectedParticle} setSelectedParticle={setSelectedParticle} numCubes={opt * 10} />
                     </Stage>
                 </Canvas>
             </div>
@@ -30,6 +38,8 @@ export function RNGraphDemo() {
 }
 interface CubesSetProps {
     numCubes: number;
+    setSelectedParticle: (n: number) => void;
+    selectedParticle: number | null;
 }
 function CubesSet(props: CubesSetProps) {
     function createParticles(n: number) {
@@ -48,8 +58,8 @@ function CubesSet(props: CubesSetProps) {
         <group>
             {particles.map((p, ix) => {
                 return (
-                    <mesh key={ix} position={[p.pos.x, p.pos.y + p.height / 2, p.pos.z]} >
-                        <meshStandardMaterial color={p.colour} />
+                    <mesh key={ix} position={[p.pos.x, p.pos.y + p.height / 2, p.pos.z]} onPointerOver={() => props.setSelectedParticle(p.id)}>
+                        <meshStandardMaterial color={props.selectedParticle === null || p.id === props.selectedParticle ? p.colour : "gray"} />
                         <boxGeometry args={[1, p.height, 1]} />
                     </mesh>)
             })}
