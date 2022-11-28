@@ -1,6 +1,5 @@
 import { OrbitControls, Stage } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import './App.css';
 
 import { TruchetLayers } from './TruchetLayers';
 function TruchetDemo() {

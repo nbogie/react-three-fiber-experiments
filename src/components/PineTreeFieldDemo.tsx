@@ -1,6 +1,5 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import './App.css';
 import { PineTreeField } from './PineTreeField';
 
 function PineTreeFieldDemo() {
