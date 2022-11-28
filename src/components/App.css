@@ -97,3 +97,11 @@ button:focus-visible {
   width: 100%;
   height: 100%;
 }
+
+.text-boxes-demo-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+
+}
