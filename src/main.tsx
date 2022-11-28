@@ -5,7 +5,7 @@ import PineTreeFieldDemo from './components/PineTreeFieldDemo'
 import TruchetDemo from './components/TruchetDemo'
 import './components/App.css';
 import { TextBoxesDemo } from './components/TextBoxesDemo'
-import { RNGraphDemo } from './components/RNGraphDemo'
+import { RNGraphDemo } from './components/RNGraph/RNGraphDemo'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
