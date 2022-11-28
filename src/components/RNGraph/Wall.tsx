@@ -1,5 +1,5 @@
 import React from 'react';
-import { IConnection } from "./CubesSet";
+import { IConnection } from "./rnConnections";
 
 export function Wall({ c, opacity }: { c: IConnection; opacity: number; }): JSX.Element {
     const height = 1.3 ** Math.max(10 - c.distToCentre, 0.1) / 2;
@@ -26,5 +26,4 @@ export function Wall({ c, opacity }: { c: IConnection; opacity: number; }): JSX.
         </group>
 
     );
-    /* hsl(0, 100%, 50%)*/
 }

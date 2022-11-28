@@ -10,18 +10,16 @@ interface SideMenuProps {
 }
 ;
 export function SideMenu({ setOpt, setSelectedParticleId, opt, selectedParticleId, wallOpacity, setWallOpacity }: SideMenuProps) {
+    const numPointsChoices = [10, 20, 30, 50, 100, 200, 300, 400, 500, 600, 700];
     return (
         <div className="react-controls">
             <div>
-                {[10, 20, 30, 50, 100, 200, 300, 400, 500, 600, 700].map(ix => (
-                    <React.Fragment key={ix}>
-                        <h2 onClick={() => {
-                            setOpt(ix);
-                            setSelectedParticleId(null);
-                        }}
-                        >Num Points: {ix}</h2>
-                        <br />
-                    </React.Fragment>
+                {numPointsChoices.map(ix => (
+                    <h2 key={ix} onClick={() => {
+                        setOpt(ix);
+                        setSelectedParticleId(null);
+                    }}
+                    >Num Points: {ix}</h2>
                 )
                 )}
             </div>
