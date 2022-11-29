@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import PineTreeFieldDemo from './components/PineTreeFieldDemo';
+import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
 import { TextBoxesDemo } from './components/TextBoxesDemo';
 import TruchetDemo from './components/TruchetDemo';
