@@ -1,4 +1,3 @@
-import React from 'react';
 import { IParticle } from "./particle";
 
 interface BuildingProps {

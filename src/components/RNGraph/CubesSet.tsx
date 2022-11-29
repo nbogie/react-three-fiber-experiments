@@ -1,10 +1,9 @@
 import { useFrame } from '@react-three/fiber';
-import React from 'react';
 import { useMemo, useRef } from 'react';
 import { Mesh } from 'three';
 import { Building } from './Building';
-import { createConnections } from './rnConnections';
 import { createParticle } from './particle';
+import { createConnections } from './rnConnections';
 import { collect } from './util';
 import { Wall } from './Wall';
 

@@ -5,8 +5,6 @@ import { TextBoxesDemo } from './components/TextBoxesDemo';
 import TruchetDemo from './components/TruchetDemo';
 import { Layout } from './Layout';
 
-import './components/App.css';
-
 export function MyRoutes() {
     return (
 

@@ -1,6 +1,5 @@
-import React from 'react';
-import { useMemo } from 'react';
-import { TruchetTile, TileOrientation } from './TruchetTile';
+import React, { useMemo } from 'react';
+import { TileOrientation, TruchetTile } from './TruchetTile';
 
 interface TruchetTilesProps {
     colour: string;

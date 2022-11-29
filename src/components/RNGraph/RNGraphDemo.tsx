@@ -1,6 +1,6 @@
 import { OrbitControls, Stage } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CubesSet } from './CubesSet';
 import { SideMenu } from './SideMenu';
 

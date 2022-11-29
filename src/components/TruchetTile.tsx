@@ -1,5 +1,5 @@
-import { Euler } from 'three';
 import * as THREE from "three";
+import { Euler } from 'three';
 export type TileOrientation = 0 | 1 | 2 | 3
 
 interface TruchetTileProps {

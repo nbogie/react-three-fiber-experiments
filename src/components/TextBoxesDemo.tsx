@@ -1,7 +1,6 @@
 import { OrbitControls, Stage } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
-import React, { useState } from 'react';
-import { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Mesh, Vector3 } from 'three';
 
 export function TextBoxesDemo() {
