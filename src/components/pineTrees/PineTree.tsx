@@ -4,12 +4,13 @@ interface PineTreeProps {
     position: [number, number, number];
     onPointerOver: () => void;
     isActive: boolean;
+    height: number
 }
-export function PineTree({ position, isActive, onPointerOver }: PineTreeProps) {
+export function PineTree({ position, isActive, onPointerOver, height }: PineTreeProps) {
     const [x, y, z] = position;
     const opacity = isActive ? 1 : 0.1;
     return (
-        <group onPointerOver={onPointerOver} scale={[1, 1, 1]}>
+        <group onPointerOver={onPointerOver} scale={[1, height, 1]}>
 
             <mesh
                 scale={[0.5, 1, 0.5]}

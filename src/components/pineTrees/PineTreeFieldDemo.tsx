@@ -11,11 +11,11 @@ function PineTreeFieldDemo() {
       <Canvas>
 
         <ambientLight intensity={0.1} />
-        <directionalLight color="white" position={[0, 1, 2]} />
-        <directionalLight color="skyblue" position={[-1, -3, 1]} />
+        <directionalLight color="white" position={[0, 1, -10]} />
+        {/* <directionalLight color="skyblue" position={[-1, -3, 1]} /> */}
 
         <group position={[0, -1.1, 0]}>
-          <PineTreeField numTrees={100} radius={radius} />
+          <PineTreeField numTrees={100} radius={radius * 0.9} />
         </group>
 
         <group position={[0, -2, 0]}>
@@ -26,7 +26,7 @@ function PineTreeFieldDemo() {
           <Moon size={40} />
         </group>
 
-        <OrbitControls autoRotate={true} autoRotateSpeed={3} rotateSpeed={1} />
+        <OrbitControls autoRotate={true} autoRotateSpeed={0.3} rotateSpeed={1} />
 
       </Canvas>
     </div >
@@ -59,11 +59,11 @@ function Ground({ radius }: { radius: number }) {
 }
 
 function Moon({ size }: { size: number }): JSX.Element {
-  const detail = 20;
+  const detail = 40;
 
   return (
     <mesh>
-      <meshStandardMaterial color={pinePalette.moonColour} />
+      <meshBasicMaterial color={pinePalette.moonColour} />
       <sphereGeometry args={[size, detail, detail]} />
     </mesh>
   )
