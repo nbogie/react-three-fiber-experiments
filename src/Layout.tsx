@@ -22,6 +22,9 @@ export function Layout() {
                 <li>
                     <Link to="/rngraph">Relative Neigbourhood Graph</Link>
                 </li>
+                <li>
+                    <Link to="/tube">tube demo</Link>
+                </li>
             </ul>
         </nav>
 

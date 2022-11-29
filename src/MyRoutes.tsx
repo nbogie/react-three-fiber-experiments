@@ -3,6 +3,7 @@ import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
 import { TextBoxesDemo } from './components/TextBoxesDemo';
 import TruchetDemo from './components/truchetTiling/TruchetDemo';
+import { TubeDemo } from './components/TubeDemo';
 import { Layout } from './Layout';
 
 export function MyRoutes() {
@@ -18,6 +19,7 @@ export function MyRoutes() {
                 <Route path="text-boxes" element={<TextBoxesDemo />} />
                 <Route path="pine-trees" element={<PineTreeFieldDemo />} />
                 <Route path="rngraph" element={<RNGraphDemo />} />
+                <Route path="tube" element={<TubeDemo />} />
 
                 {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
