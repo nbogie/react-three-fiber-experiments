@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { PerlinTerrainDemo } from './components/perlinTerrain/PerlinTerrainDemo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
 import { TextBoxesDemo } from './components/TextBoxesDemo';
@@ -20,6 +21,7 @@ export function MyRoutes() {
                 <Route path="pine-trees" element={<PineTreeFieldDemo />} />
                 <Route path="rngraph" element={<RNGraphDemo />} />
                 <Route path="tube" element={<TubeDemo />} />
+                <Route path="perlin-terrain" element={<PerlinTerrainDemo />} />
 
                 {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
