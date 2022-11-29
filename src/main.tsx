@@ -1,18 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { PineTreeField } from './components/PineTreeField'
-import PineTreeFieldDemo from './components/PineTreeFieldDemo'
-import TruchetDemo from './components/TruchetDemo'
-import './components/App.css';
-import { TextBoxesDemo } from './components/TextBoxesDemo'
-import { RNGraphDemo } from './components/RNGraph/RNGraphDemo'
+import { BrowserRouter } from 'react-router-dom'
+import './components/App.css'
+import { MyRoutes } from './MyRoutes'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    {/* <TruchetDemo /> */}
-    {/* <TextBoxesDemo /> */}
-    <RNGraphDemo />
-    {/* <PineTreeFieldDemo /> */}
+    <BrowserRouter>
+      <MyRoutes />
+    </BrowserRouter>
   </React.StrictMode>
 )
 

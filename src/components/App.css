@@ -18,6 +18,8 @@
 
 body {
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 body * {
@@ -113,4 +115,19 @@ input {
 
 h2 {
   margin-bottom: 1rem;
+}
+
+nav {
+  margin-right: 1rem;
+}
+
+nav ul li {
+  list-style: none;
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  font-size: 1.5rem;
 }
