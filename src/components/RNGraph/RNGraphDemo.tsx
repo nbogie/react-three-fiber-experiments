@@ -10,7 +10,7 @@ export function RNGraphDemo() {
     const [wallOpacity, setWallOpacity] = useState<number>(1);
     const [selectedParticleId, setSelectedParticleId] = useState<number | null>(null);
     return (
-        <div className="text-boxes-demo-container">
+        <div className="demo-container-with-side">
 
             <SideMenu {...{
                 setOpt, setSelectedParticleId, opt, selectedParticleId,

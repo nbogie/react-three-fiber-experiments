@@ -7,7 +7,7 @@ import font from "../assets/Anton-Regular.ttf"
 export function TextBoxesDemo() {
     const [opt, setOpt] = useState<number>(6);
     return (
-        <div className="text-boxes-demo-container">
+        <div className="demo-container-with-side">
             <div className="react-controls">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(ix => (
                     <React.Fragment key={ix}><h2

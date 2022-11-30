@@ -100,13 +100,21 @@ button:focus-visible {
   height: 100%;
 }
 
-.text-boxes-demo-container {
+.demo-container-with-side {
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 3fr;
 
 }
+
+pre {
+  overflow-y: scroll;
+  text-align: left;
+  height: 80VH;
+}
+
+
 
 input {
   padding: 0.2rem 0.5rem;
