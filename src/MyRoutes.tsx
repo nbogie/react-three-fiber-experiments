@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import LoadModelDemo from './components/loadModel/LoadModelDemo';
 import { PerlinTerrainDemo } from './components/perlinTerrain/PerlinTerrainDemo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
@@ -19,6 +20,7 @@ export function MyRoutes() {
                 <Route path="truchet" element={<TruchetDemo />} />
                 <Route path="text-boxes" element={<TextBoxesDemo />} />
                 <Route path="pine-trees" element={<PineTreeFieldDemo />} />
+                <Route path="load-model" element={<LoadModelDemo />} />
                 <Route path="rngraph" element={<RNGraphDemo />} />
                 <Route path="tube" element={<TubeDemo />} />
                 <Route path="perlin-terrain" element={<PerlinTerrainDemo />} />

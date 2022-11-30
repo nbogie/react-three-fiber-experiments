@@ -20,6 +20,9 @@ export function Layout() {
                     <Link to="/pine-trees">pine-trees</Link>
                 </li>
                 <li>
+                    <Link to="/load-model">load-model</Link>
+                </li>
+                <li>
                     <Link to="/rngraph">Relative Neigbourhood Graph</Link>
                 </li>
                 <li>
