@@ -4,16 +4,10 @@ import { BoxGeometry, Group, MeshStandardMaterial } from 'three';
 import { Box } from "./Box";
 
 //Warning: inefficient!
-
 export function CubesGroup() {
     const positions = useMemo(() => createPositions(20), []);
 
     const groupRef = useRef<Group>(null!);
-    // useFrame(() => {
-    //     if (groupRef.current) {
-    //         groupRef.current.rotation.y += 0.005;
-    //     }
-    // });
     const geometry = new BoxGeometry();
 
     const normalMaterial = new MeshStandardMaterial({ color: "yellow" });
@@ -33,14 +27,14 @@ export function CubesGroup() {
         </group>
     );
 }
-function createPositions(numPositions: number): [number, number, number][] {
+function createPositions(numColumns: number): [number, number, number][] {
     //By default simplex-noise.js will use Math.random() to seed the noise.
 
     // initializing a new simplex instance
     // do this only once as it is relatively expensive
     const noise4D = createNoise4D();
 
-    const range = 20;
+    const range = numColumns;
     const posns: [number, number, number][] = [];
     const noiseScale = 0.07;
 
