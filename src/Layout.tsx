@@ -29,6 +29,12 @@ export function Layout() {
                     <Link to="/perlin-terrain">perlin-terrain</Link>
                 </li>
                 <li>
+                    <Link to="/transitioning-boxes">transitioning-boxes</Link>
+                </li>
+                <li>
+                    <Link to="/fetched-bar-graph">fetched-bar-graph</Link>
+                </li>
+                <li>
                     <Link to="/tube">tube</Link>
                 </li>
             </ul>

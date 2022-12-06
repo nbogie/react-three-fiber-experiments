@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { createNoise4D } from 'simplex-noise';
-import { BoxGeometry, Group, MeshStandardMaterial, Object3D } from 'three';
+import { BoxGeometry, Group, InstancedMesh, MeshStandardMaterial, Object3D } from 'three';
 
 //Alternative with instancing:
 //https://docs.pmnd.rs/react-three-fiber/advanced/scaling-performance#instancing
 
+// typescript with r3f: https://docs.pmnd.rs/react-three-fiber/tutorials/typescript
 export function InstancedCubesGroup() {
     const positions = useMemo(() => createPositions(70), []);
     const count = positions.length;
@@ -12,7 +13,7 @@ export function InstancedCubesGroup() {
     const groupRef = useRef<Group>(null!);
 
 
-    const ref = useRef()
+    const ref = useRef<InstancedMesh>(null!)
     const temp = new Object3D();
 
     useEffect(() => {
@@ -22,12 +23,10 @@ export function InstancedCubesGroup() {
             temp.position.set(pos[0], pos[1], pos[2])
             temp.updateMatrix()
             if (ref.current) {
-                //@ts-ignore
                 ref.current.setMatrixAt(i, temp.matrix)
             }
         }
         // Update the instance
-        //@ts-ignore
         ref.current.instanceMatrix.needsUpdate = true
     }, [])
 
@@ -39,8 +38,11 @@ export function InstancedCubesGroup() {
 
     return (
         <group ref={groupRef}>
-            {/* @ts-ignore */}
-            <instancedMesh ref={ref} args={[null, null, count]}>
+            <instancedMesh
+                ref={ref}
+                //@ts-ignore
+                args={[null, null, count]}
+            >
                 <boxGeometry />
                 <meshPhongMaterial />
             </instancedMesh>

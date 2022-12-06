@@ -9,9 +9,9 @@ export function PerlinTerrainDemo() {
         <Canvas>
             <Stage>
                 <OrbitControls />
-                <CubesGroup />
+                {/* <CubesGroup /> */}
                 {/* more efficient: */}
-                {/* <InstancedCubesGroup /> */}
+                <InstancedCubesGroup />
             </Stage>
         </Canvas>
     )

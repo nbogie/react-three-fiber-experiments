@@ -1,9 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
+import { FetchedBarGraphDemo } from './components/fetchedBarGraph/FetchedBarGraphDemo';
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
 import { PerlinTerrainDemo } from './components/perlinTerrain/PerlinTerrainDemo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
 import { TextBoxesDemo } from './components/TextBoxesDemo';
+import { TransitioningBoxesDemo } from './components/transitioningBoxes/TransitioningBoxesDemo';
 import TruchetDemo from './components/truchetTiling/TruchetDemo';
 import { TubeDemo } from './components/TubeDemo';
 import { Layout } from './Layout';
@@ -23,6 +25,8 @@ export function MyRoutes() {
                 <Route path="load-model" element={<LoadModelDemo />} />
                 <Route path="rngraph" element={<RNGraphDemo />} />
                 <Route path="tube" element={<TubeDemo />} />
+                <Route path="transitioning-boxes" element={<TransitioningBoxesDemo />} />
+                <Route path="fetched-bar-graph" element={<FetchedBarGraphDemo />} />
                 <Route path="perlin-terrain" element={<PerlinTerrainDemo />} />
 
                 {/* Using path="*"" means "match anything", so this route
