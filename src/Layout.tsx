@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { myRoutes } from './MyRoutes';
 
 export function Layout() {
     return <React.Fragment>
@@ -10,39 +11,12 @@ export function Layout() {
                 <li>
                     <Link to="/">Index</Link>
                 </li>
-                <li>
-                    <Link to="/truchet">Truchet Tiling</Link>
-                </li>
-                <li>
-                    <Link to="/text-boxes">text-boxes</Link>
-                </li>
-                <li>
-                    <Link to="/pine-trees">pine-trees</Link>
-                </li>
-                <li>
-                    <Link to="/load-model">load-model</Link>
-                </li>
-                <li>
-                    <Link to="/load-model-fancier">load-model-fancier</Link>
-                </li>
-                <li>
-                    <Link to="/rngraph">Relative Neigbourhood Graph</Link>
-                </li>
-                <li>
-                    <Link to="/physics1">Physics1</Link>
-                </li>
-                <li>
-                    <Link to="/perlin-terrain">perlin-terrain</Link>
-                </li>
-                <li>
-                    <Link to="/transitioning-boxes">transitioning-boxes</Link>
-                </li>
-                <li>
-                    <Link to="/fetched-bar-graph">fetched-bar-graph</Link>
-                </li>
-                <li>
-                    <Link to="/tube">tube</Link>
-                </li>
+                {myRoutes.map(oneRoute =>
+                    <li>
+                        <Link to={"/" + oneRoute.path}>{oneRoute.path}</Link>
+                    </li>
+                )}
+
             </ul>
         </nav>
 
