@@ -29,6 +29,9 @@ export function Layout() {
                     <Link to="/rngraph">Relative Neigbourhood Graph</Link>
                 </li>
                 <li>
+                    <Link to="/physics1">Physics1</Link>
+                </li>
+                <li>
                     <Link to="/perlin-terrain">perlin-terrain</Link>
                 </li>
                 <li>

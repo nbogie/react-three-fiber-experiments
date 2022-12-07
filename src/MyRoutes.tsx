@@ -3,6 +3,7 @@ import { FetchedBarGraphDemo } from './components/fetchedBarGraph/FetchedBarGrap
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
 import LoadModelFancierDemo from './components/loadModelFancier/LoadModelFancierDemo';
 import { PerlinTerrainDemo } from './components/perlinTerrain/PerlinTerrainDemo';
+import Physics1Demo from './components/physics1/Physics1Demo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
 import { TextBoxesDemo } from './components/TextBoxesDemo';
@@ -27,6 +28,7 @@ export function MyRoutes() {
                 <Route path="load-model-fancier" element={<LoadModelFancierDemo />} />
                 <Route path="rngraph" element={<RNGraphDemo />} />
                 <Route path="tube" element={<TubeDemo />} />
+                <Route path="physics1" element={<Physics1Demo />} />
                 <Route path="transitioning-boxes" element={<TransitioningBoxesDemo />} />
                 <Route path="fetched-bar-graph" element={<FetchedBarGraphDemo />} />
                 <Route path="perlin-terrain" element={<PerlinTerrainDemo />} />

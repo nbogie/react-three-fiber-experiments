@@ -1,3 +1,7 @@
+# Various react-three-fiber experiments
+
+Including some modified from the original r3f examples: see credits.
+
 # Truchet tiling demo in react three fiber
 
 (practicing react three fiber)
@@ -24,4 +28,5 @@ yarn dev
 
 # Credits
 
-Includes font [Anton](https://fonts.google.com/specimen/Anton) from google fonts
+-   Physics1Demo is 99% from Paul Henschel's Simple Physics Demo https://codesandbox.io/s/z8e6m?file=/src/App.js:0-1261
+-   Some demos include the font [Anton](https://fonts.google.com/specimen/Anton) from google fonts
