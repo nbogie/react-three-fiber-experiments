@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { FetchedBarGraphDemo } from './components/fetchedBarGraph/FetchedBarGraphDemo';
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
+import LoadModelFancierDemo from './components/loadModelFancier/LoadModelFancierDemo';
 import { PerlinTerrainDemo } from './components/perlinTerrain/PerlinTerrainDemo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
@@ -23,6 +24,7 @@ export function MyRoutes() {
                 <Route path="text-boxes" element={<TextBoxesDemo />} />
                 <Route path="pine-trees" element={<PineTreeFieldDemo />} />
                 <Route path="load-model" element={<LoadModelDemo />} />
+                <Route path="load-model-fancier" element={<LoadModelFancierDemo />} />
                 <Route path="rngraph" element={<RNGraphDemo />} />
                 <Route path="tube" element={<TubeDemo />} />
                 <Route path="transitioning-boxes" element={<TransitioningBoxesDemo />} />
