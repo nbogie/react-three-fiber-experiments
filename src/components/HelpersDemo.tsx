@@ -23,7 +23,7 @@ export function HelpersDemo() {
                 <Canvas>
                     {/* <OrbitControls autoRotate={false} /> */}
                     <Stage>
-                        <PivotControls>
+                        <PivotControls depthTest={false}>
 
                             <mesh position={[0, 0, 0]}>
                                 <meshStandardMaterial color={"tomato"} />
