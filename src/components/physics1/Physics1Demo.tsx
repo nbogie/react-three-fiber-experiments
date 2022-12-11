@@ -49,7 +49,7 @@ function GroundPlane(props: {}) {
         //@ts-ignore
         <mesh ref={ref}>
             <planeGeometry args={[20, 20]} />
-            <meshStandardMaterial color="tomato" />
+            <meshStandardMaterial color="skyblue" />
         </mesh>
     )
 }
