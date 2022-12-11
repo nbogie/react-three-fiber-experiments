@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { createNoise4D } from 'simplex-noise';
-import { BoxGeometry, Group, InstancedMesh, MeshStandardMaterial, Object3D } from 'three';
+import { BoxGeometry, Group, InstancedMesh, MeshStandardMaterial, Object3D, Vector3 } from 'three';
 
 //Alternative with instancing:
 //https://docs.pmnd.rs/react-three-fiber/advanced/scaling-performance#instancing
@@ -61,11 +61,15 @@ function createPositions(columnCount: number): [number, number, number][] {
     const noiseScale = 0.04;
     const cellSize = 0.5;
     const w = 0;
+    const tempVec3 = new Vector3(0, 0, 0); //will represent each position in turn
+    const centreVec3 = new Vector3(0, 0, 0);
     for (let x = -range; x < range; x++) {
         for (let y = -range; y < range; y++) {
             for (let z = -range; z < range; z++) {
                 const value4d = noise4D(x * noiseScale, y * noiseScale, z * noiseScale, w);
-                if (value4d > 0.2) {
+                tempVec3.set(x, y, z)
+                const dist = tempVec3.distanceTo(centreVec3)
+                if (value4d > 0.2 && dist > 40) {
                     posns.push([x * cellSize, y * cellSize, z * cellSize]);
                 }
             }
