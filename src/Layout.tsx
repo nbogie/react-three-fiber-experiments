@@ -12,7 +12,7 @@ export function Layout() {
                     <Link to="/">Index</Link>
                 </li>
                 {myRoutes.map(oneRoute =>
-                    <li>
+                    <li key={oneRoute.path}>
                         <Link to={"/" + oneRoute.path}>{oneRoute.path}</Link>
                     </li>
                 )}
