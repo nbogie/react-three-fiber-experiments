@@ -1,7 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import { FetchedBarGraphDemo } from './components/fetchedBarGraph/FetchedBarGraphDemo';
+import { HelpersDemo } from './components/HelpersDemo';
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
 import LoadModelFancierDemo from './components/loadModelFancier/LoadModelFancierDemo';
+import LoadModelWithAnimsDemo from './components/loadModelWithAnims/LoadModelWithAnimsDemo';
 import { PerlinTerrainDemo } from './components/perlinTerrain/PerlinTerrainDemo';
 import Physics1Demo from './components/physics1/Physics1Demo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
@@ -17,9 +19,11 @@ import { Layout } from './Layout';
 
 export const myRoutes = [
     { path: "text-boxes", element: <TextBoxesDemo /> }
+    , { path: "helpers", element: <HelpersDemo /> }
     , { path: "truchet", element: <TruchetDemo /> }
     , { path: "pine-trees", element: <PineTreeFieldDemo /> }
     , { path: "load-model", element: <LoadModelDemo /> }
+    , { path: "load-model-with-anims", element: <LoadModelWithAnimsDemo /> }
     , { path: "load-model-fancier", element: <LoadModelFancierDemo /> }
     , { path: "rngraph", element: <RNGraphDemo /> }
     , { path: "tube", element: <TubeDemo /> }

@@ -13,7 +13,7 @@ export function TextBoxesDemo() {
                     <React.Fragment key={ix}><h2
                         onClick={() => setOpt(ix)}
                         key={ix}
-                    >Hello: {ix}</h2><br /></React.Fragment>
+                    >{ix}</h2><br /></React.Fragment>
                 )
                 )}
                 <hr />
