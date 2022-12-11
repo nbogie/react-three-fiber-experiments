@@ -1,12 +1,16 @@
 import { OrbitControls, Stage } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export function TicTacToeDemo() {
     const slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
     const [disabledSlots, setDisabledSlots] = useState<number[]>([]);
 
+    function resetGame() {
+        setSelectedSlot(null);
+        setDisabledSlots([]);
+    }
     function handleSlotClicked(slot: number) {
         setDisabledSlots(prevs => {
             if (!prevs.includes(slot)) {
@@ -15,12 +19,13 @@ export function TicTacToeDemo() {
                 return prevs;
             }
         })
+        setSelectedSlot(null)
     }
     return (
         <div className="demo-container-with-side">
             <div>
-                side pane
-                {selectedSlot}
+                Selected slot: {selectedSlot}<br />
+                <button onClick={resetGame}>Reset</button>
             </div>
 
             <div className="canvas-container">
@@ -54,16 +59,16 @@ interface BoardTileProps {
     deselect: (slot: number) => void;
     onClick: (slot: number) => void;
     isDisabled: boolean;
-
 }
 
 function BoardTile(props: BoardTileProps) {
     const { slot, isSelected, setSelected, deselect, onClick, isDisabled } = props;
     return (
         <group
-            onPointerOver={() => setSelected(slot)}
-            onPointerOut={() => deselect(slot)}
-            onClick={() => onClick(slot)}
+            onPointerOver={() => isDisabled ? null : setSelected(slot)}
+            onPointerOut={() => isDisabled ? null : deselect(slot)}
+            onClick={() => isDisabled ? null : onClick(slot)
+            }
         >
 
             <mesh position={posForSlot(slot)} scale={[0.8, 1, 0.8]}>
@@ -71,15 +76,17 @@ function BoardTile(props: BoardTileProps) {
                 <boxGeometry args={[1, 0.25, 1]} />
             </mesh>
 
+            {/* mouse-over highlighting */}
             <mesh position={posForSlot(slot)}>
                 <meshStandardMaterial
                     color={isSelected ? "magenta" : "red"}
                     transparent={true}
-                    opacity={isSelected ? 1 : 0}
+                    opacity={(isSelected && !isDisabled) ? 0.8 : 0}
                 />
                 <boxGeometry args={[1, 0.20, 1]} />
             </mesh>
-        </group>
+
+        </group >
 
     )
 }
