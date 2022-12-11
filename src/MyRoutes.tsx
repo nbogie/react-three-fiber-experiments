@@ -4,7 +4,7 @@ import { HelpersDemo } from './components/HelpersDemo';
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
 import LoadModelFancierDemo from './components/loadModelFancier/LoadModelFancierDemo';
 import LoadModelWithAnimsDemo from './components/loadModelWithAnims/LoadModelWithAnimsDemo';
-import { PerlinTerrainDemo } from './components/perlinTerrain/PerlinTerrainDemo';
+import { NoiseTerrainDemo } from './components/noiseTerrain/NoiseTerrainDemo';
 import Physics1Demo from './components/physics1/Physics1Demo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
@@ -32,7 +32,7 @@ export const myRoutes = [
     , { path: "physics1", element: <Physics1Demo /> }
     , { path: "transitioning-boxes", element: <TransitioningBoxesDemo /> }
     , { path: "fetched-bar-graph", element: <FetchedBarGraphDemo /> }
-    , { path: "perlin-terrain", element: <PerlinTerrainDemo /> }
+    , { path: "noise-terrain", element: <NoiseTerrainDemo /> }
 ]
 
 export function MyRoutes() {

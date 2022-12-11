@@ -4,7 +4,7 @@ import { CubesGroup } from './CubesGroup';
 import { InstancedCubesGroup } from './InstancedCubesGroup';
 
 
-export function PerlinTerrainDemo() {
+export function NoiseTerrainDemo() {
     return (
         <Canvas>
             <Stage>
