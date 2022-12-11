@@ -9,6 +9,7 @@ import Physics1Demo from './components/physics1/Physics1Demo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
 import { TextBoxesDemo } from './components/TextBoxesDemo';
+import { TicTacToeDemo } from './components/tictactoe/TicTacToeDemo';
 import { TransitioningBoxesDemo } from './components/transitioningBoxes/TransitioningBoxesDemo';
 import TruchetDemo from './components/truchetTiling/TruchetDemo';
 import { TubeDemo } from './components/TubeDemo';
@@ -26,6 +27,7 @@ export const myRoutes = [
     , { path: "load-model-with-anims", element: <LoadModelWithAnimsDemo /> }
     , { path: "load-model-fancier", element: <LoadModelFancierDemo /> }
     , { path: "rngraph", element: <RNGraphDemo /> }
+    , { path: "tictactoe", element: <TicTacToeDemo /> }
     , { path: "tube", element: <TubeDemo /> }
     , { path: "physics1", element: <Physics1Demo /> }
     , { path: "transitioning-boxes", element: <TransitioningBoxesDemo /> }
