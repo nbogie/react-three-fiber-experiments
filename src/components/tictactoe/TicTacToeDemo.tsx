@@ -8,6 +8,7 @@ function posForSlot(i: number): [number, number, number] {
 
 function colourForSlot(i: number): string {
     return i % 2 === 0 ? "gray" : "white"
+
 }
 
 export function TicTacToeDemo() {
@@ -24,7 +25,7 @@ export function TicTacToeDemo() {
                     <OrbitControls autoRotate={false} />
                     <Stage>
                         <group >
-                            {slots.map(slot => <BoardTile slot={slot} />)}
+                            {slots.map(slot => <BoardTile key={slot} slot={slot} />)}
                         </group>
                     </Stage>
                 </Canvas>
@@ -39,11 +40,22 @@ interface BoardTileProps {
 
 function BoardTile(props: BoardTileProps) {
     const { slot } = props;
+    const [isSelected, setSelected] = useState(false);
     return (
-        <mesh position={posForSlot(slot)} >
-            <meshStandardMaterial color={colourForSlot(slot)} />
-            <boxGeometry args={[1, 0.25, 1]} />
-        </mesh>
+        <group
+            onPointerOver={() => setSelected(true)}
+            onPointerOut={() => setSelected(false)}>
+
+            <mesh position={posForSlot(slot)} scale={[0.8, 1, 0.8]}>
+                <meshStandardMaterial color={colourForSlot(slot)} />
+                <boxGeometry args={[1, 0.25, 1]} />
+            </mesh>
+            <mesh position={posForSlot(slot)}>
+                <meshStandardMaterial color={isSelected ? "magenta" : colourForSlot(slot)}
+                    transparent={true} opacity={isSelected ? 1 : 0} />
+                <boxGeometry args={[1, 0.20, 1]} />
+            </mesh>
+        </group>
 
     )
 }
