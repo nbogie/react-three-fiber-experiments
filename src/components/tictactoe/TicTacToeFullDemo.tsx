@@ -1,11 +1,11 @@
 import { OrbitControls, Stage, Text } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
-import { PosIndex, PosState, useExampleTicTacToeBoard, useTicTacToeBoard } from './useTicTacToeBoard';
+import { PosIndex, PosState, useTicTacToeBoard } from './useTicTacToeBoard';
 
 export function TicTacToeFullDemo() {
     const slots: PosIndex[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    const [gameBoard, setPosOnGameBoard, resetGameBoard] = useExampleTicTacToeBoard();
+    const [gameBoard, setPosOnGameBoard, resetGameBoard] = useTicTacToeBoard();
     const [selectedSlot, setSelectedSlot] = useState<null | PosIndex>(null)
 
     function resetGame() {
@@ -26,7 +26,8 @@ export function TicTacToeFullDemo() {
                 <Canvas>
                     <OrbitControls autoRotate={false} />
                     <ambientLight />
-                    <directionalLight />
+                    <directionalLight position={[3, 3, -1]} />
+                    <directionalLight color={"gray"} position={[1, -1, 2]} />
                     {/* <Stage> */}
                     <group >
                         {slots.map(slot => (
@@ -99,7 +100,7 @@ function BoardTile(props: BoardTileProps) {
 
 
 function posForSlot(i: PosIndex): [number, number, number] {
-    return [i % 3, 0, Math.floor(i / 3)]
+    return [(i % 3) - 1, 0, Math.floor(i / 3) - 1]
 }
 
 function colourForSlot(i: PosIndex, isDisabled: boolean): string {
