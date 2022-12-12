@@ -22,12 +22,11 @@ export function TicTacToeFullDemo() {
     return (
         <div className="demo-container-with-side">
             <div>
-                Selected slot: {selectedSlot}<br />
-                <button onClick={handleResetGame}>Reset</button>
+                <button onClick={handleResetGame}>Reset Game</button>
             </div>
 
             <div className="canvas-container">
-                <Canvas>
+                <Canvas camera={{ position: [0.1, 2, 3] }}>
                     <OrbitControls autoRotate={isGameOver} />
                     <ambientLight />
                     <directionalLight position={[3, 3, -1]} />
