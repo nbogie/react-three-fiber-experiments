@@ -2,7 +2,8 @@ import { OrbitControls, Stage } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 
-export function TicTacToeDemo() {
+//This example doesn't run the full game, just demos a simple board with selectable squares.
+export function TicTacToeSimpleDemo() {
     const slots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
     const [disabledSlots, setDisabledSlots] = useState<number[]>([]);
