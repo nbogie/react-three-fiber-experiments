@@ -94,7 +94,7 @@ function BoardTile(props: BoardTileProps) {
 
 
 function posForSlot(i: number): [number, number, number] {
-    return [i % 3, 0, Math.floor(i / 3)]
+    return [(i % 3) - 1, 0, Math.floor(i / 3) - 1]
 }
 
 function colourForSlot(i: number, isDisabled: boolean): string {
