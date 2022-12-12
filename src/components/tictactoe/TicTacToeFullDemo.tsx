@@ -1,16 +1,21 @@
-import { OrbitControls, Stage, Text } from '@react-three/drei';
+import { Center, OrbitControls, Stage, Text, Text3D } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
-import { PosIndex, PosState, useTicTacToeBoard } from './useTicTacToeBoard';
+import { Player, PosIndex, PosState, useTicTacToeBoard } from './useTicTacToeBoard';
 
+//Only these characters: 'aAdDeEiInNrRwW!xXoO :'
+const fontURL = "/Arvo_Bold.json";
 export function TicTacToeFullDemo() {
     const slots: PosIndex[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    const [gameBoard, setPosOnGameBoard, resetGameBoard] = useTicTacToeBoard();
+    const [gameBoard, setPosOnGameBoard, resetGameBoard, winState] = useTicTacToeBoard();
     const [selectedSlot, setSelectedSlot] = useState<null | PosIndex>(null)
+    const isGameOver = winState.state !== "not finished"
+    const winner: Player | null = winState.state === "won" ? winState.winner : null;
 
     function resetGame() {
         resetGameBoard();
     }
+
     function handleSlotClicked(slot: number) {
         setPosOnGameBoard(slot as PosIndex);
         setSelectedSlot(null)
@@ -24,10 +29,20 @@ export function TicTacToeFullDemo() {
 
             <div className="canvas-container">
                 <Canvas>
-                    <OrbitControls autoRotate={false} />
+                    <OrbitControls autoRotate={isGameOver} />
                     <ambientLight />
                     <directionalLight position={[3, 3, -1]} />
                     <directionalLight color={"gray"} position={[1, -1, 2]} />
+
+                    {isGameOver &&
+                        <Center position={[0, 1.5, 0]} >
+                            <Text3D font={fontURL} scale={0.5}>
+                                {winState.state === "draw" ? "Draw" : `Winner: ${winner}!`}
+                                <meshStandardMaterial color={winner === "X" ? "#dddddd" : "tomato"} />
+                            </Text3D>
+                        </Center>
+                    }
+
                     {/* <Stage> */}
                     <group >
                         {slots.map(slot => (
@@ -39,7 +54,7 @@ export function TicTacToeFullDemo() {
                                 deselect={slot => (slot === selectedSlot) && setSelectedSlot(null)}
                                 onClick={handleSlotClicked}
                                 slot={slot}
-                                isDisabled={gameBoard[slot] !== ""}
+                                isDisabled={isGameOver || gameBoard[slot] !== ""}
                             />)
                         )}
                     </group>
@@ -72,10 +87,12 @@ function BoardTile(props: BoardTileProps) {
         >
             <group position={posForSlot(slot)} >
 
-                <Text position={[0, 0.126, 0]} scale={5} rotation-x={-Math.PI / 2}>
-                    {content}
-                    <meshStandardMaterial color={content === "X" ? "black" : "white"} />
-                </Text>
+                <Center position={[0, 0.16, 0]} >
+                    <Text3D font={fontURL} scale={0.6} rotation-x={-Math.PI / 2}>
+                        {content}
+                        <meshStandardMaterial color={content === "X" ? "#dddddd" : "tomato"} />
+                    </Text3D>
+                </Center>
                 {/* clickable board position */}
                 <mesh scale={[0.8, 1, 0.8]}>
                     <meshStandardMaterial color={colourForSlot(slot, isDisabled)} />

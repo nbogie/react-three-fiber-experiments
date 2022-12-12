@@ -27,6 +27,8 @@ export type WinState =
     | { state: 'not finished' }
     | { state: 'won'; winner: Player };
 
+export type UseBoardReturn = [BoardState, (posIndex: PosIndex) => void, () => void, WinState];
+
 
 /** Returns a tictactoe BoardState ready to be rendered, as well as a function that can be called to update the game board with a move.
  *
@@ -38,11 +40,7 @@ export type WinState =
  *
  * @returns [current BoardState, applyMove function, resetBoard function]
  */
-export function useTicTacToeBoard(): [
-    BoardState,
-    (posIndex: PosIndex) => void,
-    () => void
-] {
+export function useTicTacToeBoard(): UseBoardReturn {
     const initialBoard: BoardState = makeInitialBoard();
 
     return useTicTacToeBoardWithInitial(initialBoard);
@@ -54,7 +52,7 @@ function makeInitialBoard(): BoardState {
 
 export function useTicTacToeBoardWithInitial(
     initialBoard: BoardState
-): [BoardState, (posIndex: PosIndex) => void, () => void] {
+): UseBoardReturn {
     const [gameBoard, setGameBoard] = React.useState(initialBoard);
 
     function applyMove(posIndex: PosIndex): void {
@@ -76,14 +74,12 @@ export function useTicTacToeBoardWithInitial(
     function reset() {
         setGameBoard(makeInitialBoard());
     }
-    return [gameBoard, applyMove, reset];
+    const winState = calcWinState(gameBoard)
+    return [gameBoard, applyMove, reset, winState];
 }
 /** Same behaviour as useTicTacToeBoard but with a made-up game-in-progress, to help early UI prototyping. */
-export function useExampleTicTacToeBoard(): [
-    BoardState,
-    (posIndex: PosIndex) => void,
-    () => void
-] {
+export function useExampleTicTacToeBoard():
+    UseBoardReturn {
     const exampleBoard: BoardState = ['X', 'O', '', 'X', '', 'O', 'X', '', ''];
 
     return useTicTacToeBoardWithInitial(exampleBoard);
