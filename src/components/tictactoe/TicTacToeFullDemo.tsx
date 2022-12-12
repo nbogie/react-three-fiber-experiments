@@ -1,7 +1,7 @@
 import { Center, OrbitControls, Stage, Text, Text3D } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
-import { Player, PosIndex, PosState, useTicTacToeBoard } from './useTicTacToeBoard';
+import { Player, PosIndex, PosState, useTicTacToeBoard, WinState } from './useTicTacToeBoard';
 
 //Only these characters: 'aAdDeEiInNrRwW!xXoO :'
 const fontURL = "/Arvo_Bold.json";
@@ -10,9 +10,8 @@ export function TicTacToeFullDemo() {
     const [gameBoard, setPosOnGameBoard, resetGameBoard, winState] = useTicTacToeBoard();
     const [selectedSlot, setSelectedSlot] = useState<null | PosIndex>(null)
     const isGameOver = winState.state !== "not finished"
-    const winner: Player | null = winState.state === "won" ? winState.winner : null;
 
-    function resetGame() {
+    function handleResetGame() {
         resetGameBoard();
     }
 
@@ -24,7 +23,7 @@ export function TicTacToeFullDemo() {
         <div className="demo-container-with-side">
             <div>
                 Selected slot: {selectedSlot}<br />
-                <button onClick={resetGame}>Reset</button>
+                <button onClick={handleResetGame}>Reset</button>
             </div>
 
             <div className="canvas-container">
@@ -35,12 +34,7 @@ export function TicTacToeFullDemo() {
                     <directionalLight color={"gray"} position={[1, -1, 2]} />
 
                     {isGameOver &&
-                        <Center position={[0, 1.5, 0]} >
-                            <Text3D font={fontURL} scale={0.5}>
-                                {winState.state === "draw" ? "Draw" : `Winner: ${winner}!`}
-                                <meshStandardMaterial color={winner === "X" ? "#dddddd" : "tomato"} />
-                            </Text3D>
-                        </Center>
+                        <GameOutcomeText winState={winState} />
                     }
 
                     {/* <Stage> */}
@@ -115,6 +109,20 @@ function BoardTile(props: BoardTileProps) {
     )
 }
 
+interface GameOutcomeTextProps {
+    winState: WinState;
+}
+function GameOutcomeText({ winState }: GameOutcomeTextProps) {
+    const colour = winState.state === "won" ? colourForPlayer(winState.winner) : "gray"
+    return (
+        <Center position={[0, 1.5, 0]} >
+            <Text3D font={fontURL} scale={0.5}>
+                {winState.state === "won" ? `Winner: ${winState.winner}!` : "Draw"}
+                <meshStandardMaterial color={colour} />
+            </Text3D>
+        </Center>
+    )
+}
 
 function posForSlot(i: PosIndex): [number, number, number] {
     return [(i % 3) - 1, 0, Math.floor(i / 3) - 1]
@@ -125,5 +133,7 @@ function colourForSlot(i: PosIndex, isDisabled: boolean): string {
         return i % 2 === 0 ? "gray" : "gray"
     }
     return i % 2 === 0 ? "yellow" : "dodgerblue"
-
+}
+function colourForPlayer(p: Player): string {
+    return p === "X" ? "#dddddd" : "tomato"
 }
