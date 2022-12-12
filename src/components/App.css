@@ -131,11 +131,16 @@ nav {
 
 nav ul li {
   list-style: none;
+  background: white;
+  color: black;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  user-select: none;
 }
 
 nav ul {
   display: flex;
   justify-content: flex-end;
-  gap: 2rem;
-  font-size: 1.5rem;
+  gap: 1rem;
 }
