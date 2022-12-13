@@ -1,6 +1,4 @@
-import { useFrame } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
-import { Mesh } from 'three';
+import { useMemo } from 'react';
 import { Building } from './Building';
 import { createParticle } from './particle';
 import { createConnections } from './rnConnections';
@@ -19,13 +17,7 @@ export function CubesSet({ wallOpacity, numCubes, setSelectedParticle }: CubesSe
     }
     const particles = useMemo(() => createParticles(numCubes), [numCubes]);
     const connections = useMemo(() => createConnections(particles), [particles]);
-    const groupRef = useRef<Mesh>();
 
-    useFrame((frame, delta) => {
-        if (groupRef.current) {
-            groupRef.current.rotation.z += delta;
-        }
-    });
     return (
         <group>
             {particles.map((p, ix) => <Building key={ix} p={p} onPointerOver={(id) => setSelectedParticle(id)} />
