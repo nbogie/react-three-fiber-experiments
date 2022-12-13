@@ -1,6 +1,6 @@
 import { Float, OrbitControls, Stage, Text } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing';
+import { Bloom, DepthOfField, EffectComposer, Glitch, Noise, Vignette } from '@react-three/postprocessing';
 import React, { useMemo, useRef, useState } from 'react';
 import { Mesh, Vector3 } from 'three';
 import font from "../assets/Anton-Regular.ttf"
@@ -23,14 +23,15 @@ export function PostProcessingDemo() {
             <div className="canvas-container">
                 <Canvas>
                     <OrbitControls autoRotate={false} />
+                    <Stage>
+                        <CubesSet numCubes={opt * 10} />
+                    </Stage>
                     <EffectComposer>
                         <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} />
                         <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
-                        <Noise opacity={0.02} />
+                        <Noise opacity={0.12} />
+                        <Glitch />
                         <Vignette eskil={false} offset={0.1} darkness={1.1} />
-                        <Stage>
-                            <CubesSet numCubes={opt * 10} />
-                        </Stage>
 
                     </EffectComposer>
 
