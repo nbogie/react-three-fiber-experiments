@@ -1,8 +1,9 @@
-import { Center, OrbitControls, Stage, Text, Text3D } from '@react-three/drei';
+import { Center, Float, OrbitControls, Stage, Text, Text3D } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { Player, PosIndex, PosState, useTicTacToeBoard, WinState } from './useTicTacToeBoard';
 
+//Generate font json with https://gero3.github.io/facetype.js/
 //Only these characters: 'aAdDeEiInNrRwW!xXoO :'
 const fontURL = "/Arvo_Bold.json";
 export function TicTacToeFullDemo() {
@@ -32,10 +33,8 @@ export function TicTacToeFullDemo() {
                     <directionalLight position={[3, 3, -1]} />
                     <directionalLight color={"gray"} position={[1, -1, 2]} />
 
-                    {isGameOver &&
-                        <GameOutcomeText winState={winState} />
-                    }
-
+                    {isGameOver && <GameOutcomeText winState={winState} />}
+                    {isGameOver && <RestartText onClick={handleResetGame} />}
                     {/* <Stage> */}
                     <group >
                         {slots.map(slot => (
@@ -111,15 +110,33 @@ function BoardTile(props: BoardTileProps) {
 interface GameOutcomeTextProps {
     winState: WinState;
 }
+
 function GameOutcomeText({ winState }: GameOutcomeTextProps) {
     const colour = winState.state === "won" ? colourForPlayer(winState.winner) : "gray"
     return (
-        <Center position={[0, 1.5, 0]} >
-            <Text3D font={fontURL} scale={0.5}>
-                {winState.state === "won" ? `Winner: ${winState.winner}!` : "Draw"}
-                <meshStandardMaterial color={colour} />
-            </Text3D>
-        </Center>
+        <Float position={[0, 1.5, 0]} speed={1}>
+            <Center >
+                <Text3D font={fontURL} scale={0.5}>
+                    {winState.state === "won" ? `Winner: ${winState.winner}!` : "Draw"}
+                    <meshStandardMaterial color={colour} />
+                </Text3D>
+            </Center>
+        </Float>
+    )
+}
+interface RestartTextProps {
+    onClick: () => void;
+}
+function RestartText({ onClick }: RestartTextProps) {
+    return (
+        <Float position={[0, -0.8, 1]} speed={8} onClick={onClick}>
+            <Center >
+                <Text3D font={fontURL} scale={0.4}>
+                    Restart
+                    <meshStandardMaterial color="gray" />
+                </Text3D>
+            </Center>
+        </Float>
     )
 }
 
