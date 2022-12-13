@@ -2,7 +2,7 @@ import { Float, OrbitControls, Stage, Text } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Bloom, DepthOfField, EffectComposer, Glitch, Noise, Vignette } from '@react-three/postprocessing';
 import React, { useMemo, useRef, useState } from 'react';
-import { Mesh, Vector3 } from 'three';
+import { Mesh, Vector2, Vector3 } from 'three';
 import font from "../assets/Anton-Regular.ttf"
 
 export function PostProcessingDemo() {
@@ -30,7 +30,8 @@ export function PostProcessingDemo() {
                         <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} />
                         <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
                         <Noise opacity={0.12} />
-                        <Glitch />
+                        {/* https://docs.pmnd.rs/react-postprocessing/effects/glitch */}
+                        <Glitch delay={new Vector2(5, 15)} />
                         <Vignette eskil={false} offset={0.1} darkness={1.1} />
 
                     </EffectComposer>
