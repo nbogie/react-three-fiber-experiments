@@ -7,6 +7,7 @@ import LoadModelWithAnimsDemo from './components/loadModelWithAnims/LoadModelWit
 import { NoiseTerrainDemo } from './components/noiseTerrain/NoiseTerrainDemo';
 import Physics1Demo from './components/physics1/Physics1Demo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
+import { PostProcessingDemo } from './components/PostProcessingDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
 import { TextBoxesDemo } from './components/TextBoxesDemo';
 import { TicTacToeFullDemo } from './components/tictactoe/TicTacToeFullDemo';
@@ -32,6 +33,7 @@ export const myRoutes = [
     , { path: "tictactoe-simple", element: <TicTacToeSimpleDemo /> }
     , { path: "tube", element: <TubeDemo /> }
     , { path: "physics1", element: <Physics1Demo /> }
+    , { path: "post-processing", element: <PostProcessingDemo /> }
     , { path: "transitioning-boxes", element: <TransitioningBoxesDemo /> }
     , { path: "fetched-bar-graph", element: <FetchedBarGraphDemo /> }
     , { path: "noise-terrain", element: <NoiseTerrainDemo /> }
