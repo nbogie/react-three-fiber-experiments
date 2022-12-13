@@ -1,5 +1,6 @@
-import { Center, Float, OrbitControls, Stage, Text, Text3D } from '@react-three/drei';
+import { Center, Float, OrbitControls, Text3D } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import { EffectComposer, Select, Selection, SelectiveBloom } from '@react-three/postprocessing';
 import { useState } from 'react';
 import { Player, PosIndex, PosState, useTicTacToeBoard, WinState } from './useTicTacToeBoard';
 
@@ -33,27 +34,34 @@ export function TicTacToeFullDemo() {
                     <directionalLight position={[3, 3, -1]} />
                     <directionalLight color={"gray"} position={[1, -1, 2]} />
 
-                    {isGameOver && <GameOutcomeText winState={winState} />}
-                    {isGameOver && <RestartText onClick={handleResetGame} />}
-                    {/* <Stage> */}
-                    <group >
-                        {slots.map(slot => (
-                            <BoardTile
-                                key={slot}
-                                content={gameBoard[slot]}
-                                isSelected={selectedSlot === slot}
-                                setSelected={setSelectedSlot}
-                                deselect={slot => (slot === selectedSlot) && setSelectedSlot(null)}
-                                onClick={handleSlotClicked}
-                                slot={slot}
-                                isDisabled={isGameOver || gameBoard[slot] !== ""}
-                            />)
-                        )}
-                    </group>
+                    <Selection enabled>
+
+                        <EffectComposer>
+                            <SelectiveBloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+                        </EffectComposer>
+
+                        {isGameOver && <GameOutcomeText winState={winState} />}
+                        {isGameOver && <RestartText onClick={handleResetGame} />}
+                        {/* <Stage> */}
+                        <group >
+                            {slots.map(slot => (
+                                <BoardTile
+                                    key={slot}
+                                    content={gameBoard[slot]}
+                                    isSelected={selectedSlot === slot}
+                                    setSelected={setSelectedSlot}
+                                    deselect={slot => (slot === selectedSlot) && setSelectedSlot(null)}
+                                    onClick={handleSlotClicked}
+                                    slot={slot}
+                                    isDisabled={isGameOver || gameBoard[slot] !== ""}
+                                />)
+                            )}
+                        </group>
+                    </Selection>
                     {/* </Stage> */}
                 </Canvas>
             </div>
-        </div>
+        </div >
     );
 }
 
@@ -92,14 +100,19 @@ function BoardTile(props: BoardTileProps) {
                 </mesh>
 
                 {/* mouse-over highlighting */}
-                <mesh>
-                    <meshStandardMaterial
-                        color={isSelected ? "magenta" : "red"}
-                        transparent={true}
-                        opacity={(isSelected && !isDisabled) ? 0.8 : 0}
-                    />
-                    <boxGeometry args={[1, 0.20, 1]} />
-                </mesh>
+                {/* for selective bloom */}
+                <Select enabled={isSelected}>
+                    <mesh>
+                        <boxGeometry args={[1, 0.20, 1]} />
+                        <meshStandardMaterial
+                            emissive={"magenta"}
+                            emissiveIntensity={3}
+                            color={isSelected ? "magenta" : "red"}
+                            transparent={true}
+                            opacity={(isSelected && !isDisabled) ? 0.5 : 0}
+                        />
+                    </mesh>
+                </Select>
             </group>
 
         </group >
@@ -116,10 +129,13 @@ function GameOutcomeText({ winState }: GameOutcomeTextProps) {
     return (
         <Float position={[0, 1.5, 0]} speed={1}>
             <Center >
-                <Text3D font={fontURL} scale={0.5}>
-                    {winState.state === "won" ? `Winner: ${winState.winner}!` : "Draw"}
-                    <meshStandardMaterial color={colour} />
-                </Text3D>
+                {/* for selective bloom */}
+                <Select enabled >
+                    <Text3D font={fontURL} scale={0.5}>
+                        {winState.state === "won" ? `Winner: ${winState.winner}!` : "Draw"}
+                        <meshStandardMaterial color={colour} />
+                    </Text3D>
+                </Select>
             </Center>
         </Float>
     )
