@@ -1,9 +1,9 @@
 import { OrbitControls, Stage } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { Bloom, DepthOfField, EffectComposer, Glitch, Noise, Vignette } from '@react-three/postprocessing';
+import { Bloom, EffectComposer } from '@react-three/postprocessing';
 import { useMemo, useState } from 'react';
-import { Vector2, Vector3 } from 'three';
-import { lerp } from 'three/src/math/MathUtils';
+import { Vector3 } from 'three';
+import { lerp, randFloat } from 'three/src/math/MathUtils';
 
 function XmasTreeDemo() {
 
@@ -34,32 +34,38 @@ export function XmasTree() {
     const [lightsAreOn, setLightsAreOn] = useState(false);
 
     return (
-        <group onClick={() => setLightsAreOn(prev => !prev)}>
+        <group >
             <BaubleString startRadius={0.5} endRadius={0.23} rise={0.55} vertOffset={-0.45} areOn={lightsAreOn} />
             <BaubleString startRadius={0.3} endRadius={0.1} rise={0.3} vertOffset={0.3} areOn={lightsAreOn} />
-            <mesh
-                scale={[0.5, 1, 0.5]}
-                position={[0, 0, 0]}
-            >
-                <coneGeometry />
-                <meshStandardMaterial color={"green"} />
-            </mesh>
+            <group onClick={() => {
+                setLightsAreOn(prev => !prev)
+            }}>
 
-            <mesh
-                scale={[0.3, 0.6, 0.3]}
-                position={[0, 0.5, 0]}
-            >
-                <coneGeometry />
-                <meshStandardMaterial color={"green"} />
-            </mesh>
 
-            <mesh
-                scale={[0.2, 0.5, 0.2]}
-                position={[0, - 0.5, 0]}
-            >
-                <cylinderGeometry />
-                <meshStandardMaterial color={"brown"} />
-            </mesh>
+                <mesh
+                    scale={[0.5, 1, 0.5]}
+                    position={[0, 0, 0]}
+                >
+                    <coneGeometry />
+                    <meshStandardMaterial color={"green"} />
+                </mesh>
+
+                <mesh
+                    scale={[0.3, 0.6, 0.3]}
+                    position={[0, 0.5, 0]}
+                >
+                    <coneGeometry />
+                    <meshStandardMaterial color={"green"} />
+                </mesh>
+
+                <mesh
+                    scale={[0.2, 0.5, 0.2]}
+                    position={[0, - 0.5, 0]}
+                >
+                    <cylinderGeometry />
+                    <meshStandardMaterial color={"brown"} />
+                </mesh>
+            </group>
 
         </group>
 
@@ -74,13 +80,12 @@ interface BaubleStringProps {
 }
 
 function BaubleString({ startRadius, endRadius, rise, vertOffset, areOn }: BaubleStringProps): JSX.Element {
-    const baublePositions = computeBaublePositions(startRadius, endRadius, rise, vertOffset);
+    const baublePositions = useMemo(() => computeBaublePositions(startRadius, endRadius, rise, vertOffset), []);
 
     function computeBaublePositions(startRadius: number, endRadius: number, totalRise: number, vertOffset: number): Vector3[] {
         const positions: Vector3[] = [];
         const angleStep = 10 * Math.PI / 90;
         const totalAngle = Math.PI * 4;
-        const numSteps = totalAngle / angleStep;
 
         for (let angle = 0; angle <= totalAngle; angle += angleStep) {
             const progressionFrac = angle / totalAngle;
@@ -88,7 +93,8 @@ function BaubleString({ startRadius, endRadius, rise, vertOffset, areOn }: Baubl
             const x = radius * Math.cos(angle);
             const z = radius * Math.sin(angle);
             const y = vertOffset + lerp(0, totalRise, progressionFrac);
-            positions.push(new Vector3(x, y, z));
+            const randomOffset = new Vector3(1, 1, 1).randomDirection().multiplyScalar(randFloat(0.01, 0.02))
+            positions.push(new Vector3(x, y, z).add(randomOffset));
         }
         return positions;
 
@@ -117,12 +123,11 @@ function Bauble({ position, size, isOn, colour }: BaubleProps) {
     // const colour = useMemo(() => pick(["red", "purple", "gold", "silver"]), []);
 
     return (
+        // <Float floatIntensity={0.1} >
         <mesh scale={size} position={position}>
             <sphereGeometry />
             <meshStandardMaterial color={colour} emissive={colour} emissiveIntensity={isOn ? 1 : 0} />
-        </mesh>)
-}
-
-function pick<T>(arr: T[]): T {
-    return arr[Math.floor(Math.random() * arr.length)];
+        </mesh>
+        // </Float>
+    )
 }
