@@ -11,17 +11,16 @@ function XmasTreeDemo() {
         <div className="canvas-container">
             <Canvas>
                 <Stage>
-
                     <XmasTree />
                 </Stage>
 
+                {/* https://docs.pmnd.rs/react-postprocessing/ */}
                 <EffectComposer>
                     <Bloom luminanceThreshold={0.6} luminanceSmoothing={1} height={100} />
-                    {/* https://docs.pmnd.rs/react-postprocessing/effects/glitch */}
                 </EffectComposer>
 
 
-                <OrbitControls autoRotate={true} autoRotateSpeed={0.3} rotateSpeed={1} />
+                <OrbitControls autoRotate={true} autoRotateSpeed={0.5} rotateSpeed={1} />
             </Canvas>
         </div >
     )
@@ -36,7 +35,7 @@ export function XmasTree() {
     return (
         <group >
             <BaubleString startRadius={0.5} endRadius={0.23} rise={0.55} vertOffset={-0.45} areOn={lightsAreOn} />
-            <BaubleString startRadius={0.3} endRadius={0.1} rise={0.3} vertOffset={0.3} areOn={lightsAreOn} />
+            <BaubleString startRadius={0.27} endRadius={0.12} rise={0.3} vertOffset={0.3} areOn={lightsAreOn} />
             <group onClick={() => {
                 setLightsAreOn(prev => !prev)
             }}>
@@ -59,7 +58,7 @@ export function XmasTree() {
                 </mesh>
 
                 <mesh
-                    scale={[0.2, 0.5, 0.2]}
+                    scale={[0.11, 0.5, 0.11]}
                     position={[0, - 0.5, 0]}
                 >
                     <cylinderGeometry />
@@ -86,8 +85,10 @@ function BaubleString({ startRadius, endRadius, rise, vertOffset, areOn }: Baubl
         const positions: Vector3[] = [];
         const angleStep = 10 * Math.PI / 90;
         const totalAngle = Math.PI * 4;
-
-        for (let angle = 0; angle <= totalAngle; angle += angleStep) {
+        //Angle between baubles should increase as the radius narrows.
+        //Really, we want to space by a fixed *string travel distance* (partial circumference of the spiral)
+        //  rather than a fixed *angle*
+        for (let angle = 0; angle <= totalAngle; angle += angleStep * randFloat(0.9, 1.1)) {
             const progressionFrac = angle / totalAngle;
             const radius = lerp(startRadius, endRadius, progressionFrac);
             const x = radius * Math.cos(angle);
@@ -100,7 +101,7 @@ function BaubleString({ startRadius, endRadius, rise, vertOffset, areOn }: Baubl
 
     }
     function colourForIx(ix: number): string {
-        const palette: string[] = ["red", "purple", "gold", "silver"];
+        const palette: string[] = ["red", "purple", "gold"];
 
         return palette[ix % palette.length];
     }
