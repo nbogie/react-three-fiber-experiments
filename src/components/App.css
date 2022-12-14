@@ -125,6 +125,7 @@ h2 {
   margin-bottom: 1rem;
 }
 
+
 nav {
   margin-right: 1rem;
 }
@@ -143,4 +144,33 @@ nav ul {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+nav.simplifiedTopMenu {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  nav.topMenu {
+    display: none
+  }
+
+  nav.simplifiedTopMenu {
+    display: block;
+  }
+}
+
+nav.mainMenuPage ul {
+  margin-top: 2rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 20rem;
+  /* align-items: center; */
+}
+
+nav.mainMenuPage ul li {
+  min-width: 12rem;
+  padding: 0.6rem 0.3rem;
+  background: #333;
+  border: 1px solid #eee;
 }

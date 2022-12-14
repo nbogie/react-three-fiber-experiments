@@ -4,6 +4,7 @@ import { HelpersDemo } from './components/HelpersDemo';
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
 import LoadModelFancierDemo from './components/loadModelFancier/LoadModelFancierDemo';
 import LoadModelWithAnimsDemo from './components/loadModelWithAnims/LoadModelWithAnimsDemo';
+import { MainMenu } from './components/MainMenu';
 import { NoiseTerrainDemo } from './components/noiseTerrain/NoiseTerrainDemo';
 import Physics1Demo from './components/physics1/Physics1Demo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
@@ -21,7 +22,8 @@ import { Layout } from './Layout';
 
 
 export const myRoutes = [
-    { path: "text-boxes", element: <TextBoxesDemo /> }
+    { path: "menu", element: <MainMenu /> }
+    , { path: "text-boxes", element: <TextBoxesDemo /> }
     , { path: "helpers", element: <HelpersDemo /> }
     , { path: "truchet", element: <TruchetDemo /> }
     , { path: "pine-trees", element: <PineTreeFieldDemo /> }
