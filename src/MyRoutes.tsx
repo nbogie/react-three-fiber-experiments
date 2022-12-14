@@ -16,6 +16,7 @@ import { TicTacToeSimpleDemo } from './components/tictactoe/TicTacToeSimpleDemo'
 import { TransitioningBoxesDemo } from './components/transitioningBoxes/TransitioningBoxesDemo';
 import TruchetDemo from './components/truchetTiling/TruchetDemo';
 import { TubeDemo } from './components/TubeDemo';
+import XmasTreeDemo from './components/xmasTree/XmasTreeDemo';
 import { Layout } from './Layout';
 
 
@@ -39,6 +40,7 @@ export const myRoutes = [
     , { path: "transitioning-boxes", element: <TransitioningBoxesDemo /> }
     , { path: "fetched-bar-graph", element: <FetchedBarGraphDemo /> }
     , { path: "noise-terrain", element: <NoiseTerrainDemo /> }
+    , { path: "xmas-tree", element: <XmasTreeDemo /> }
 ]
 
 export function MyRoutes() {
