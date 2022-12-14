@@ -127,7 +127,7 @@ h2 {
 
 
 nav {
-  margin-right: 1rem;
+  margin: 0 auto;
 }
 
 nav ul li {
@@ -150,6 +150,19 @@ nav.simplifiedTopMenu {
   display: none;
 }
 
+nav.mainMenuPage {
+  display: grid;
+  place-items: center;
+}
+
+
+nav.mainMenuPage ul li {
+  min-width: 20rem;
+  padding: 0.1rem 0.3rem;
+  background: #333;
+  border: 1px solid #eee;
+}
+
 @media screen and (max-width: 768px) {
   nav.topMenu {
     display: none
@@ -158,19 +171,17 @@ nav.simplifiedTopMenu {
   nav.simplifiedTopMenu {
     display: block;
   }
+
+  nav.mainMenuPage ul li {
+    min-width: 8rem;
+  }
 }
 
 nav.mainMenuPage ul {
   margin-top: 2rem;
+  display: flex;
+  gap: 0.4rem;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
-  min-width: 20rem;
-  /* align-items: center; */
-}
-
-nav.mainMenuPage ul li {
-  min-width: 12rem;
-  padding: 0.6rem 0.3rem;
-  background: #333;
-  border: 1px solid #eee;
 }
