@@ -1,9 +1,10 @@
-import { Float, OrbitControls, Stage, Text } from '@react-three/drei';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, OrbitControls, Stage, Stars, Text } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 import { Bloom, DepthOfField, EffectComposer, Glitch, Noise, Vignette } from '@react-three/postprocessing';
-import React, { useMemo, useRef, useState } from 'react';
-import { Mesh, Vector2, Vector3 } from 'three';
-import font from "../assets/Anton-Regular.ttf"
+import React, { useMemo, useState } from 'react';
+import { Vector2, Vector3 } from 'three';
+import { randFloatSpread } from 'three/src/math/MathUtils';
+import font from "../assets/Anton-Regular.ttf";
 
 export function PostProcessingDemo() {
     const [opt, setOpt] = useState<number>(6);
@@ -26,6 +27,8 @@ export function PostProcessingDemo() {
                     <Stage>
                         <CubesSet numCubes={opt * 10} />
                     </Stage>
+                    <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} speed={0} />
+                    {/* <Sparkles count={500} scale={10} size={5} speed={0.3} noise={0} /> */}
                     <EffectComposer>
                         <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} />
                         <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
@@ -78,8 +81,9 @@ interface IParticle {
 }
 
 function createParticle(): IParticle {
+    const distFromCentre: number = Math.sqrt(Math.abs(randFloatSpread(1))) * 10;
     return {
-        pos: new Vector3(0, 1, 0).randomDirection().multiplyScalar(Math.random() * 10 - 5),
+        pos: new Vector3(0, 1, 0).randomDirection().multiplyScalar(distFromCentre),
         vel: new Vector3(0, 0, 0),
         colour: Math.random() < 0.1 ? "dodgerblue" : "tomato",
         word: randomName()
