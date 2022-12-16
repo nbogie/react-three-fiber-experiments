@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { FetchedBarGraphDemo } from './components/fetchedBarGraph/FetchedBarGraphDemo';
-import { HelpersDemo } from './components/HelpersDemo';
+import { HelpersDemo } from './components/helpersDemo/HelpersDemo';
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
 import LoadModelFancierDemo from './components/loadModelFancier/LoadModelFancierDemo';
 import LoadModelWithAnimsDemo from './components/loadModelWithAnims/LoadModelWithAnimsDemo';
@@ -8,14 +8,14 @@ import { MainMenu } from './components/MainMenu';
 import { NoiseTerrainDemo } from './components/noiseTerrain/NoiseTerrainDemo';
 import Physics1Demo from './components/physics1/Physics1Demo';
 import PineTreeFieldDemo from './components/pineTrees/PineTreeFieldDemo';
-import { PostProcessingDemo } from './components/PostProcessingDemo';
+import { PostProcessingDemo } from './components/postProcessing/PostProcessingDemo';
 import { RNGraphDemo } from './components/RNGraph/RNGraphDemo';
-import { TextBoxesDemo } from './components/TextBoxesDemo';
+import { TextBoxesDemo } from './components/textBoxes/TextBoxesDemo';
 import { TicTacToeFullDemo } from './components/tictactoe/TicTacToeFullDemo';
 import { TicTacToeSimpleDemo } from './components/tictactoe/TicTacToeSimpleDemo';
 import { TransitioningBoxesDemo } from './components/transitioningBoxes/TransitioningBoxesDemo';
 import TruchetDemo from './components/truchetTiling/TruchetDemo';
-import { TubeDemo } from './components/TubeDemo';
+import { TubeDemo } from './components/tube/TubeDemo';
 import XmasTreeDemo from './components/xmasTree/XmasTreeDemo';
 import { Layout } from './Layout';
 

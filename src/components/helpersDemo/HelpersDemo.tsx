@@ -1,8 +1,7 @@
-import { OrbitControls, PivotControls, Stage, Text } from '@react-three/drei';
-import { Canvas, useFrame } from '@react-three/fiber';
-import React, { useMemo, useRef, useState } from 'react';
-import { Mesh, Vector3 } from 'three';
-import font from "../assets/Anton-Regular.ttf"
+import { PivotControls, Stage, Text } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import React, { useState } from 'react';
+import font from "../../assets/Anton-Regular.ttf";
 
 export function HelpersDemo() {
     const [opt, setOpt] = useState<number>(6);

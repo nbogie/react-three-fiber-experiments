@@ -4,7 +4,7 @@ import { Bloom, DepthOfField, EffectComposer, Glitch, Noise, Vignette } from '@r
 import React, { useMemo, useState } from 'react';
 import { Vector2, Vector3 } from 'three';
 import { randFloatSpread } from 'three/src/math/MathUtils';
-import font from "../assets/Anton-Regular.ttf";
+import font from "../../assets/Anton-Regular.ttf";
 
 export function PostProcessingDemo() {
     const [opt, setOpt] = useState<number>(6);
