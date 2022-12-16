@@ -21,6 +21,13 @@ export function TicTacToeFullDemo() {
         setPosOnGameBoard(slot as PosIndex);
         setSelectedSlot(null)
     }
+    function isInWinningLines(slot: number): boolean {
+        if (winState.state !== "won") {
+            return false;
+        }
+        return winState.winningLines.some(line => line.find(winSlot => winSlot === slot) !== undefined)
+    }
+
     return (
         <div className="demo-container-with-side">
             <div>
@@ -54,6 +61,7 @@ export function TicTacToeFullDemo() {
                                     onClick={handleSlotClicked}
                                     slot={slot}
                                     isDisabled={isGameOver || gameBoard[slot] !== ""}
+                                    isHighlitForWin={isInWinningLines(slot)}
                                 />)
                             )}
                         </group>
@@ -66,18 +74,27 @@ export function TicTacToeFullDemo() {
 }
 
 interface BoardTileProps {
+    /** index of the tile */
     slot: PosIndex;
-    isSelected: boolean;
-    setSelected: (slot: PosIndex) => void;
-    deselect: (slot: number) => void;
-    onClick: (slot: number) => void;
-    isDisabled: boolean;
+    /** the content "X" | "O" | "" in the slot */
     content: PosState;
+    /** is selected (likely mouse over, ready to be clicked) */
+    isSelected: boolean;
+    /** function to be called when tile is hovered over */
+    setSelected: (slot: PosIndex) => void;
+    /** function to be called when tile ceases to be hovered over */
+    deselect: (slot: number) => void;
 
+    /** function to be called when tile is clicked */
+    onClick: (slot: number) => void;
+    /** function is disabled - can't be clicked (e.g. has already been played on) */
+    isDisabled: boolean;
+    /** is to be highlit as part of a winning row */
+    isHighlitForWin: boolean;
 }
 
 function BoardTile(props: BoardTileProps) {
-    const { slot, isSelected, setSelected, deselect, onClick, isDisabled, content } = props;
+    const { slot, isSelected, setSelected, deselect, onClick, isDisabled, isHighlitForWin, content } = props;
     return (
         <group
             onPointerOver={() => isDisabled ? null : setSelected(slot)}
@@ -92,6 +109,7 @@ function BoardTile(props: BoardTileProps) {
                         {content}
                         <meshStandardMaterial color={content === "X" ? "#dddddd" : "tomato"} />
                     </Text3D>
+
                 </Center>
                 {/* clickable board position */}
                 <mesh scale={[0.8, 1, 0.8]}>
@@ -101,7 +119,7 @@ function BoardTile(props: BoardTileProps) {
 
                 {/* mouse-over highlighting */}
                 {/* for selective bloom */}
-                <Select enabled={isSelected}>
+                <Select enabled={isSelected || isHighlitForWin}>
                     <mesh>
                         <boxGeometry args={[1, 0.20, 1]} />
                         <meshStandardMaterial
