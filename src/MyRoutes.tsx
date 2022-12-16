@@ -19,12 +19,8 @@ import { TubeDemo } from './components/tube/TubeDemo';
 import XmasTreeDemo from './components/xmasTree/XmasTreeDemo';
 import { Layout } from './Layout';
 
-
-
-
-export const myRoutes = [
-    { path: "menu", element: <MainMenu /> }
-    , { path: "text-boxes", element: <TextBoxesDemo /> }
+const sortedRoutes = [
+    { path: "text-boxes", element: <TextBoxesDemo /> }
     , { path: "helpers", element: <HelpersDemo /> }
     , { path: "truchet", element: <TruchetDemo /> }
     , { path: "pine-trees", element: <PineTreeFieldDemo /> }
@@ -41,7 +37,9 @@ export const myRoutes = [
     , { path: "fetched-bar-graph", element: <FetchedBarGraphDemo /> }
     , { path: "noise-terrain", element: <NoiseTerrainDemo /> }
     , { path: "xmas-tree", element: <XmasTreeDemo /> }
-]
+].sort((a, b) => (a.path < b.path) ? -1 : 1);
+
+export const myRoutes = [{ path: "menu", element: <MainMenu /> }, ...sortedRoutes];
 
 export function MyRoutes() {
     return (
@@ -62,10 +60,6 @@ export function MyRoutes() {
     );
 }
 
-/*
-
-
-*/
 function NoMatch() {
     return (<div>No matching route</div>)
 }
