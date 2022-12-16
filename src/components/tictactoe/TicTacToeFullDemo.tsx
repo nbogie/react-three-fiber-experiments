@@ -102,37 +102,41 @@ function BoardTile(props: BoardTileProps) {
             onClick={() => isDisabled ? null : onClick(slot)
             }
         >
-            <group position={posForSlot(slot)} >
+            <Float speed={isHighlitForWin ? 5 : 0}>
 
-                <Center position={[0, 0.16, 0]} >
-                    <Text3D font={fontURL} scale={0.6} rotation-x={-Math.PI / 2}>
-                        {content}
-                        <meshStandardMaterial color={content === "X" ? "#dddddd" : "tomato"} />
-                    </Text3D>
+                <group position={posForSlot(slot)} >
 
-                </Center>
-                {/* clickable board position */}
-                <mesh scale={[0.8, 1, 0.8]}>
-                    <meshStandardMaterial color={colourForSlot(slot, isDisabled)} />
-                    <boxGeometry args={[1, 0.25, 1]} />
-                </mesh>
+                    <Center position={[0, 0.16, 0]} >
+                        <Text3D font={fontURL} scale={0.6} rotation-x={-Math.PI / 2}>
+                            {content}
+                            <meshStandardMaterial color={content === "X" ? "#dddddd" : "tomato"} />
+                        </Text3D>
 
-                {/* mouse-over highlighting */}
-                {/* for selective bloom */}
-                <Select enabled={isSelected || isHighlitForWin}>
-                    <mesh>
-                        <boxGeometry args={[1, 0.20, 1]} />
-                        <meshStandardMaterial
-                            emissive={"magenta"}
-                            emissiveIntensity={3}
-                            color={isSelected ? "magenta" : "red"}
-                            transparent={true}
-                            opacity={(isSelected && !isDisabled) ? 0.5 : 0}
-                        />
+                    </Center>
+                    {/* clickable board position */}
+                    <mesh scale={[0.8, 1, 0.8]}>
+                        <meshStandardMaterial color={colourForSlot(slot, isDisabled)} />
+                        <boxGeometry args={[1, 0.25, 1]} />
                     </mesh>
-                </Select>
-            </group>
 
+                    {/* mouse-over highlighting */}
+                    {/* for selective bloom */}
+                    <Select enabled={isSelected || isHighlitForWin}>
+                        <mesh>
+                            <boxGeometry args={[1, 0.20, 1]} />
+                            <meshStandardMaterial
+                                emissive={"magenta"}
+                                emissiveIntensity={3}
+                                color={isSelected ? "magenta" : "red"}
+                                transparent={true}
+                                opacity={(isSelected && !isDisabled) ? 0.5 : 0}
+                            />
+                        </mesh>
+                    </Select>
+                </group>
+
+
+            </Float>
         </group >
 
     )
