@@ -50,7 +50,11 @@ export function MyRoutes() {
             parent route elements. See the note about <Outlet> below. */}
             <Route path="/" element={<Layout />}>
                 <Route index element={myRoutes[0].element} />
-                {myRoutes.map(oneRoute => <Route key={oneRoute.path} path={oneRoute.path} element={oneRoute.element} />)}
+                {
+                    myRoutes.map(oneRoute => (
+                        <Route key={oneRoute.path} path={oneRoute.path} element={oneRoute.element} />
+                    ))
+                }
                 {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
