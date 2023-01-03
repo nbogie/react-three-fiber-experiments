@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import CityDriveSimplestDemo, { CityDriveSimplest } from './components/cityDriveSimplest/CityDriveSimplestDemo';
 import { FetchedBarGraphDemo } from './components/fetchedBarGraph/FetchedBarGraphDemo';
 import { HelpersDemo } from './components/helpersDemo/HelpersDemo';
 import LoadModelDemo from './components/loadModel/LoadModelDemo';
@@ -37,6 +38,7 @@ const sortedRoutes = [
     , { path: "fetched-bar-graph", element: <FetchedBarGraphDemo /> }
     , { path: "noise-terrain", element: <NoiseTerrainDemo /> }
     , { path: "xmas-tree", element: <XmasTreeDemo /> }
+    , { path: "city-driver-simplest", element: <CityDriveSimplestDemo /> }
 ].sort((a, b) => (a.path < b.path) ? -1 : 1);
 
 export const myRoutes = [{ path: "menu", element: <MainMenu /> }, ...sortedRoutes];
