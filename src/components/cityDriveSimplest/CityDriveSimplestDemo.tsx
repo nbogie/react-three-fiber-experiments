@@ -87,6 +87,8 @@ export function CityDriveSimplest(props: CityDriveSimplestProps) {
             <group position={[0, 0, car.position.z]}>
                 <Ground />
                 <Road />
+                <axesHelper args={[1]} position={[-1, 2, -1]} />
+                <gridHelper />
             </group>
 
         </group>
