@@ -1,6 +1,11 @@
-import { PerspectiveCamera, Plane } from '@react-three/drei';
+/* 
+Of all of these examples this is the worst as it is animated and as far as possible makes no concessions to performance 
+
+Rather it's intended to be as easy as possible for a junior developer to understand who knows some react basics but not yet refs. 
+*/
+import { Float, PerspectiveCamera, Plane } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Vector3 } from 'three';
 import { randFloat, randFloatSpread } from 'three/src/math/MathUtils';
 
@@ -13,15 +18,24 @@ const palette = [
 ];
 
 function CityDriveSimplestDemo() {
-
+    const [camHeight, setCamHeight] = useState(1);
     return (
-        <div className="canvas-container">
-            <Canvas camera={{ position: [0, 1, -2], fov: 50 }}>
+        <div className="demo-container-with-side">
+            <div>
 
-                <CityDriveSimplest />
-                {/* <OrbitControls autoRotate={true} autoRotateSpeed={0.5} rotateSpeed={1} /> */}
-            </Canvas>
-        </div >
+                <button onClick={() => setCamHeight(0.02)}>0.02</button>
+                <button onClick={() => setCamHeight(0.2)}>0.2</button>
+                <button onClick={() => setCamHeight(1)}>1</button>
+                <button onClick={() => setCamHeight(5)}>5</button>
+                <button onClick={() => setCamHeight(30)}>30</button>
+            </div>
+            <div className="canvas-container">
+
+                <Canvas camera={{ position: [0, 1, -2], fov: 50 }}>
+                    <CityDriveSimplest camHeight={camHeight} />
+                </Canvas>
+            </div >
+        </div>
     )
 }
 
@@ -33,19 +47,24 @@ interface Car {
     position: Vector3;
     speed: number;
 }
-
-export function CityDriveSimplest() {
+interface CityDriveSimplestProps {
+    camHeight: number;
+}
+export function CityDriveSimplest(props: CityDriveSimplestProps) {
 
     const cameraRef = useRef<THREE.PerspectiveCamera>(null!);
 
-    const [car, setCar] = useState<Car>({ position: new Vector3(0, 0, 0), speed: 0.01 });
+    const [car, setCar] = useState<Car>({ position: new Vector3(0, 0, 4), speed: 0.1 });
 
-    useFrame(() => {
+    useFrame(({ mouse }) => {
         //Note: changing react-managed state in useFrame is NOT recommended for performance reasons - it will lead to too much re-rendering
-        setCar((prev) => ({ ...prev, position: prev.position.clone().add(new Vector3(0, 0, -prev.speed)) }));
-        cameraRef.current.position.z += -car.speed;
+        setCar((prev) => ({
+            ...prev,
+            position: new Vector3(mouse.x / 3, prev.position.y, prev.position.z + -prev.speed)
+        }));
+        cameraRef.current.position.z = car.position.z + 4;
+        cameraRef.current.position.y = props.camHeight;
         cameraRef.current.lookAt(new Vector3(0, 0, cameraRef.current.position.z - 10))
-
     })
 
     return (
@@ -53,14 +72,22 @@ export function CityDriveSimplest() {
 
             <PerspectiveCamera
                 makeDefault={true}
-                position={[0, 2, 10]}
+                position={[0, 1, 5]}
                 near={0.1}
                 far={100}
                 ref={cameraRef} />
             <Car data={car} />
             <ambientLight intensity={0.5} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
-            <Buildings numBuildings={100} />
+            <Buildings
+                numBuildings={100}
+                recyclePoint={(cameraRef.current?.position.z ?? 0) + 10}
+                horizonDist={-50}
+            />
+            <group position={[0, 0, car.position.z]}>
+                <Ground />
+                <Road />
+            </group>
 
         </group>
 
@@ -88,6 +115,8 @@ function BuildingView(props: BuildingViewProps) {
 
 interface BuildingsProps {
     numBuildings: number;
+    recyclePoint: number;
+    horizonDist: number;
 }
 interface IBuilding {
     position: Vector3;
@@ -96,20 +125,28 @@ interface IBuilding {
 }
 
 function Buildings(props: BuildingsProps) {
+
     function initBuildings(numBuildings: number): IBuilding[] {
         return collect(numBuildings, createBuilding);
-
     }
 
-    const [buildings, setBuildings] = useState(() => initBuildings(props.numBuildings));
+    const buildingsPlatonic = useMemo(() => initBuildings(props.numBuildings), []);
+    const buildings = useMemo(() => wrapBuildings(), [props.recyclePoint]);
+
+    function wrapBuildings() {
+        return buildingsPlatonic.map((b) => {
+            if (b.position.z > props.recyclePoint) {
+                b.position.z = b.position.z + props.horizonDist;
+            }
+            return b;
+        });
+    }
 
     return (
         <group>
             {
                 buildings.map((b, i) => < BuildingView key={i} data={b} />)
             }
-            <Ground />
-            <Road />
         </group>
     );
 
@@ -117,7 +154,7 @@ function Buildings(props: BuildingsProps) {
 
 function createBuilding(): IBuilding {
     const x = randFloat(1, 4) * pick([-1, 1]);
-    const z = randFloatSpread(10);
+    const z = randFloatSpread(100);
     return {
         height: randFloat(0.5, 3),
         colour: pick(palette),
@@ -140,8 +177,8 @@ function pick<T>(arr: T[]): T {
 }
 function Ground(): JSX.Element {
     return (
-        <Plane args={[10, 10]} rotation-x={-Math.PI / 2} >
-            <meshStandardMaterial color={"green"} />
+        <Plane args={[10, 100]} rotation-x={-Math.PI / 2} >
+            <meshStandardMaterial color={"gray"} />
 
         </Plane>
     )
@@ -149,20 +186,23 @@ function Ground(): JSX.Element {
 function Road(): JSX.Element {
     return (
 
-        <Plane args={[1, 10]} position={[0, 0.001, 0]} rotation-x={-Math.PI / 2}>
+        <Plane args={[1, 100]} position={[0, 0.001, 0]} rotation-x={-Math.PI / 2}>
             <meshStandardMaterial color={"#111"} />
         </Plane>
     )
 }
+
 interface CarProps {
     data: Car;
 }
+
 function Car({ data }: CarProps): JSX.Element {
     return (
-        <mesh position={data.position} scale={[0.2, 0.1, 0.3]}>
-            <boxGeometry />
-            <meshStandardMaterial color={"red"} />
-        </mesh>
+        <group position={data.position} scale={[0.2, 0.1, 0.3]}>
+            <mesh>
+                <boxGeometry />
+                <meshStandardMaterial color={"red"} />
+            </mesh>
+        </group>
     )
-
 }
