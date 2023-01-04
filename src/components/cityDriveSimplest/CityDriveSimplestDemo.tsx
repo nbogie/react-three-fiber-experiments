@@ -57,7 +57,7 @@ export function CityDriveSimplest() {
                 near={0.1}
                 far={100}
                 ref={cameraRef} />
-
+            <Car data={car} />
             <ambientLight intensity={0.5} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
             <Buildings numBuildings={100} />
@@ -108,8 +108,8 @@ function Buildings(props: BuildingsProps) {
             {
                 buildings.map((b, i) => < BuildingView key={i} data={b} />)
             }
-            <Road />
             <Ground />
+            <Road />
         </group>
     );
 
@@ -138,7 +138,7 @@ export function collect<T>(num: number, createFn: (n: number) => T): T[] {
 function pick<T>(arr: T[]): T {
     return arr[Math.floor(Math.random() * arr.length)];
 }
-function Road(): JSX.Element {
+function Ground(): JSX.Element {
     return (
         <Plane args={[10, 10]} rotation-x={-Math.PI / 2} >
             <meshStandardMaterial color={"green"} />
@@ -146,11 +146,23 @@ function Road(): JSX.Element {
         </Plane>
     )
 }
-function Ground(): JSX.Element {
+function Road(): JSX.Element {
     return (
 
         <Plane args={[1, 10]} position={[0, 0.001, 0]} rotation-x={-Math.PI / 2}>
-            <meshStandardMaterial color={"#333"} />
+            <meshStandardMaterial color={"#111"} />
         </Plane>
     )
+}
+interface CarProps {
+    data: Car;
+}
+function Car({ data }: CarProps): JSX.Element {
+    return (
+        <mesh position={data.position} scale={[0.2, 0.1, 0.3]}>
+            <boxGeometry />
+            <meshStandardMaterial color={"red"} />
+        </mesh>
+    )
+
 }
