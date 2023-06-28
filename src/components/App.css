@@ -186,3 +186,8 @@ nav.mainMenuPage ul {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+
+.leftPane h2, pre {
+    color: white;
+}

@@ -16,7 +16,7 @@ function LoadModelFancierDemo() {
     return (
         <div className="demo-container-with-side">
 
-            <div>
+            <div className="leftPane">
                 <h2>Model structure:</h2>
                 <pre>
                     {modelStructureText}
