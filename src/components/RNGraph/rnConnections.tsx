@@ -1,5 +1,5 @@
-import { Vector2, Vector3 } from 'three';
-import { IParticle } from './particle';
+import { Vector2, Vector3 } from "three";
+import { IParticle } from "./particle";
 
 export interface IConnection {
     a: IParticle;
@@ -19,7 +19,9 @@ export function createConnections(ps: IParticle[]): IConnection[] {
             const dist = a.pos.distanceTo(b.pos);
             if (nothingElseNearerThan(dist, a, b)) {
                 const midpoint = a.pos.clone().lerp(b.pos, 0.5);
-                const angle = new Vector2(b.pos.x, b.pos.z).sub(new Vector2(a.pos.x, a.pos.z)).angle();
+                const angle = new Vector2(b.pos.x, b.pos.z)
+                    .sub(new Vector2(a.pos.x, a.pos.z))
+                    .angle();
                 const distToCentre = midpoint.length();
                 const obj = { a, b, midpoint, angle, dist, distToCentre };
                 arr.push(obj);
@@ -27,11 +29,17 @@ export function createConnections(ps: IParticle[]): IConnection[] {
         }
     }
 
-    function nothingElseNearerThan(pairDist: number, a: IParticle, b: IParticle): boolean {
-        return !ps.some(particle3 => particle3.id !== a.id &&
-            particle3.id !== b.id &&
-            (particle3.pos.distanceTo(a.pos) < pairDist &&
-                particle3.pos.distanceTo(b.pos) < pairDist)
+    function nothingElseNearerThan(
+        pairDist: number,
+        a: IParticle,
+        b: IParticle
+    ): boolean {
+        return !ps.some(
+            (particle3) =>
+                particle3.id !== a.id &&
+                particle3.id !== b.id &&
+                particle3.pos.distanceTo(a.pos) < pairDist &&
+                particle3.pos.distanceTo(b.pos) < pairDist
         );
     }
 

@@ -1,4 +1,3 @@
-
 export const pinePalette = {
     treeColour: "#647d34",
     grassColour: "#c0c741",

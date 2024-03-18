@@ -1,6 +1,6 @@
-import { OrbitControls, Stage } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
+import { OrbitControls, Stage } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useState } from "react";
 
 //This example doesn't run the full game, just demos a simple board with selectable squares.
 export function TicTacToeSimpleDemo() {
@@ -13,19 +13,20 @@ export function TicTacToeSimpleDemo() {
         setDisabledSlots([]);
     }
     function handleSlotClicked(slot: number) {
-        setDisabledSlots(prevs => {
+        setDisabledSlots((prevs) => {
             if (!prevs.includes(slot)) {
                 return [...prevs, slot];
             } else {
                 return prevs;
             }
-        })
-        setSelectedSlot(null)
+        });
+        setSelectedSlot(null);
     }
     return (
         <div className="demo-container-with-side">
             <div>
-                Selected slot: {selectedSlot}<br />
+                Selected slot: {selectedSlot}
+                <br />
                 <button onClick={resetGame}>Reset</button>
             </div>
 
@@ -33,18 +34,21 @@ export function TicTacToeSimpleDemo() {
                 <Canvas>
                     <OrbitControls autoRotate={false} />
                     <Stage>
-                        <group >
-                            {slots.map(slot => (
+                        <group>
+                            {slots.map((slot) => (
                                 <BoardTile
                                     key={slot}
                                     isSelected={selectedSlot === slot}
                                     setSelected={setSelectedSlot}
-                                    deselect={slot => (slot === selectedSlot) && setSelectedSlot(null)}
+                                    deselect={(slot) =>
+                                        slot === selectedSlot &&
+                                        setSelectedSlot(null)
+                                    }
                                     onClick={handleSlotClicked}
                                     slot={slot}
                                     isDisabled={disabledSlots.includes(slot)}
-                                />)
-                            )}
+                                />
+                            ))}
                         </group>
                     </Stage>
                 </Canvas>
@@ -63,15 +67,14 @@ interface BoardTileProps {
 }
 
 function BoardTile(props: BoardTileProps) {
-    const { slot, isSelected, setSelected, deselect, onClick, isDisabled } = props;
+    const { slot, isSelected, setSelected, deselect, onClick, isDisabled } =
+        props;
     return (
         <group
-            onPointerOver={() => isDisabled ? null : setSelected(slot)}
-            onPointerOut={() => isDisabled ? null : deselect(slot)}
-            onClick={() => isDisabled ? null : onClick(slot)
-            }
+            onPointerOver={() => (isDisabled ? null : setSelected(slot))}
+            onPointerOut={() => (isDisabled ? null : deselect(slot))}
+            onClick={() => (isDisabled ? null : onClick(slot))}
         >
-
             <mesh position={posForSlot(slot)} scale={[0.8, 1, 0.8]}>
                 <meshStandardMaterial color={colourForSlot(slot, isDisabled)} />
                 <boxGeometry args={[1, 0.25, 1]} />
@@ -82,25 +85,21 @@ function BoardTile(props: BoardTileProps) {
                 <meshStandardMaterial
                     color={isSelected ? "magenta" : "red"}
                     transparent={true}
-                    opacity={(isSelected && !isDisabled) ? 0.8 : 0}
+                    opacity={isSelected && !isDisabled ? 0.8 : 0}
                 />
-                <boxGeometry args={[1, 0.20, 1]} />
+                <boxGeometry args={[1, 0.2, 1]} />
             </mesh>
-
-        </group >
-
-    )
+        </group>
+    );
 }
 
-
 function posForSlot(i: number): [number, number, number] {
-    return [(i % 3) - 1, 0, Math.floor(i / 3) - 1]
+    return [(i % 3) - 1, 0, Math.floor(i / 3) - 1];
 }
 
 function colourForSlot(i: number, isDisabled: boolean): string {
     if (isDisabled) {
-        return i % 2 === 0 ? "gray" : "white"
+        return i % 2 === 0 ? "gray" : "white";
     }
-    return i % 2 === 0 ? "yellow" : "dodgerblue"
-
+    return i % 2 === 0 ? "yellow" : "dodgerblue";
 }

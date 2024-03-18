@@ -1,6 +1,6 @@
-import { Stage, useGLTF } from '@react-three/drei';
-import { useEffect } from 'react';
-import { dumpObjectToTextLines } from './dumpObjectToTextLines';
+import { Stage, useGLTF } from "@react-three/drei";
+import { useEffect } from "react";
+import { dumpObjectToTextLines } from "./dumpObjectToTextLines";
 
 interface ModelProps {
     setModelStructureText: (text: string) => void;
@@ -20,5 +20,4 @@ export function Model(props: ModelProps) {
         </Stage>
     );
     //TODO: primitives have to be disposed of manually, I think.
-
 }

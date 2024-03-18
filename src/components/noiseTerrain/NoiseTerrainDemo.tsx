@@ -1,8 +1,7 @@
-import { OrbitControls, Stage } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import { CubesGroup } from './CubesGroup';
-import { InstancedCubesGroup } from './InstancedCubesGroup';
-
+import { OrbitControls, Stage } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { CubesGroup } from "./CubesGroup";
+import { InstancedCubesGroup } from "./InstancedCubesGroup";
 
 export function NoiseTerrainDemo() {
     return (
@@ -14,7 +13,5 @@ export function NoiseTerrainDemo() {
                 <InstancedCubesGroup />
             </Stage>
         </Canvas>
-    )
+    );
 }
-
-

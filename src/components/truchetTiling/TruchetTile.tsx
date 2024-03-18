@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { Euler } from 'three';
-export type TileOrientation = 0 | 1 | 2 | 3
+import { Euler } from "three";
+export type TileOrientation = 0 | 1 | 2 | 3;
 
 interface TruchetTileProps {
     position: [number, number, number];
@@ -18,15 +18,34 @@ export function TruchetTile(props: TruchetTileProps) {
     const opacity = props.opacity;
 
     return (
-        <group position={props.position} rotation={new Euler(0, props.orientation * Math.PI / 2)}>
+        <group
+            position={props.position}
+            rotation={new Euler(0, (props.orientation * Math.PI) / 2)}
+        >
             <mesh position={[-1, 0, -1]} scale={[1, 1, 1]}>
-                <tubeGeometry args={[curve, tubeSegments, tubeRadius, 50, false]} />
-                <meshStandardMaterial transparent={true} opacity={opacity} args={[{ color: colour1 }]} />
+                <tubeGeometry
+                    args={[curve, tubeSegments, tubeRadius, 50, false]}
+                />
+                <meshStandardMaterial
+                    transparent={true}
+                    opacity={opacity}
+                    args={[{ color: colour1 }]}
+                />
             </mesh>
 
-            <mesh position={[1, 0, 1]} scale={[1, 1, 1]} rotation={new Euler(0, -Math.PI)}>
-                <tubeGeometry args={[curve, tubeSegments, tubeRadius, 50, false]} />
-                <meshStandardMaterial transparent={true} opacity={opacity} args={[{ color: colour2 }]} />
+            <mesh
+                position={[1, 0, 1]}
+                scale={[1, 1, 1]}
+                rotation={new Euler(0, -Math.PI)}
+            >
+                <tubeGeometry
+                    args={[curve, tubeSegments, tubeRadius, 50, false]}
+                />
+                <meshStandardMaterial
+                    transparent={true}
+                    opacity={opacity}
+                    args={[{ color: colour2 }]}
+                />
             </mesh>
             {/* <mesh scale={2}>
               <boxGeometry />
@@ -34,7 +53,6 @@ export function TruchetTile(props: TruchetTileProps) {
             </mesh> */}
         </group>
     );
-
 }
 
 export function generateArcCurve() {
@@ -49,10 +67,7 @@ export function generateArcCurve() {
     for (let angle = startAngle; angle <= stopAngle; angle += angleStep) {
         const x = Math.cos(angle) * radius;
         const z = Math.sin(angle) * radius;
-        points.push(
-            new THREE.Vector3(
-                x, 0, z)
-        );
+        points.push(new THREE.Vector3(x, 0, z));
     }
     return new THREE.CatmullRomCurve3(points);
 }

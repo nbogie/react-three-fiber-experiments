@@ -1,10 +1,15 @@
-import { useMemo, useState } from 'react';
-import { Vector2 } from 'three';
-import { randFloat } from 'three/src/math/MathUtils';
-import { PineTree } from './PineTree';
+import { useMemo, useState } from "react";
+import { Vector2 } from "three";
+import { randFloat } from "three/src/math/MathUtils";
+import { PineTree } from "./PineTree";
 
-export function PineTreeField({ numTrees, radius }: { numTrees: number, radius: number }): JSX.Element {
-
+export function PineTreeField({
+    numTrees,
+    radius,
+}: {
+    numTrees: number;
+    radius: number;
+}): JSX.Element {
     interface ITree {
         pos: Vector2;
         height: number;
@@ -16,8 +21,8 @@ export function PineTreeField({ numTrees, radius }: { numTrees: number, radius: 
         const pos = random2D().multiplyScalar(radius);
         return {
             pos,
-            height: randFloat(0.6, 1.2)
-        }
+            height: randFloat(0.6, 1.2),
+        };
     }
 
     return (
@@ -28,17 +33,18 @@ export function PineTreeField({ numTrees, radius }: { numTrees: number, radius: 
                     height={treeInfo.height}
                     position={[treeInfo.pos.x, 0, treeInfo.pos.y]}
                     isActive={activatedIds.has(ix)}
-                    onPointerOver={() => setActivatedIds(prev => new Set(prev).add(ix))}
-                />)
-            )
-            }
+                    onPointerOver={() =>
+                        setActivatedIds((prev) => new Set(prev).add(ix))
+                    }
+                />
+            ))}
         </>
     );
 }
 
-/** Return a random Vector2  within a unit circle.  
+/** Return a random Vector2  within a unit circle.
  * Angle chosen randomly.  radius is sqrt(random()), so more likely to be away from the centre.
- * @note: not efficient e.g. Math.sqrt, Math.cos, and creates a Vector2 rather than reusing one 
+ * @note: not efficient e.g. Math.sqrt, Math.cos, and creates a Vector2 rather than reusing one
  * */
 function random2D(): Vector2 {
     const radius = Math.sqrt(Math.random());
@@ -49,13 +55,13 @@ function random2D(): Vector2 {
 }
 
 function randAroundZero() {
-    return Math.random() * 1 - 0.5
+    return Math.random() * 1 - 0.5;
 }
 
 function collect<T>(num: number, createFn: (n: number) => T): T[] {
     let arr: T[] = [];
     for (let ix = 0; ix < num; ix++) {
-        arr.push(createFn(ix))
+        arr.push(createFn(ix));
     }
     return arr;
 }

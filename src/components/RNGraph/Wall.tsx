@@ -1,12 +1,17 @@
-import React from 'react';
+import React from "react";
 import { IConnection } from "./rnConnections";
 
-export function Wall({ c, opacity }: { c: IConnection; opacity: number; }): JSX.Element {
+export function Wall({
+    c,
+    opacity,
+}: {
+    c: IConnection;
+    opacity: number;
+}): JSX.Element {
     const height = 1.3 ** Math.max(10 - c.distToCentre, 0.1) / 2;
 
     return (
         <group>
-
             {/* midpoint marker */}
             {/* <mesh
                 position={[c.midpoint.x, c.midpoint.y, c.midpoint.z]}
@@ -17,13 +22,20 @@ export function Wall({ c, opacity }: { c: IConnection; opacity: number; }): JSX.
  */}
 
             <mesh
-                position={[c.midpoint.x, c.midpoint.y + height / 2, c.midpoint.z]}
+                position={[
+                    c.midpoint.x,
+                    c.midpoint.y + height / 2,
+                    c.midpoint.z,
+                ]}
                 rotation-y={-c.angle}
             >
-                <meshStandardMaterial color={'tomato'} transparent={true} opacity={opacity} />
+                <meshStandardMaterial
+                    color={"tomato"}
+                    transparent={true}
+                    opacity={opacity}
+                />
                 <boxGeometry args={[c.dist, height, 0.1]} />
             </mesh>
         </group>
-
     );
 }

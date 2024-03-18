@@ -1,6 +1,13 @@
-import { useEffect, useMemo, useRef } from 'react';
-import { createNoise4D } from 'simplex-noise';
-import { BoxGeometry, Group, InstancedMesh, MeshStandardMaterial, Object3D, Vector3 } from 'three';
+import { useEffect, useMemo, useRef } from "react";
+import { createNoise4D } from "simplex-noise";
+import {
+    BoxGeometry,
+    Group,
+    InstancedMesh,
+    MeshStandardMaterial,
+    Object3D,
+    Vector3,
+} from "three";
 
 //Alternative with instancing:
 //https://docs.pmnd.rs/react-three-fiber/advanced/scaling-performance#instancing
@@ -12,29 +19,27 @@ export function InstancedCubesGroup() {
 
     const groupRef = useRef<Group>(null!);
 
-
-    const ref = useRef<InstancedMesh>(null!)
+    const ref = useRef<InstancedMesh>(null!);
     const temp = new Object3D();
 
     useEffect(() => {
         // Set positions
         for (let i = 0; i < count; i++) {
             const pos = positions[i];
-            temp.position.set(pos[0], pos[1], pos[2])
-            temp.updateMatrix()
+            temp.position.set(pos[0], pos[1], pos[2]);
+            temp.updateMatrix();
             if (ref.current) {
-                ref.current.setMatrixAt(i, temp.matrix)
+                ref.current.setMatrixAt(i, temp.matrix);
             }
         }
         // Update the instance
-        ref.current.instanceMatrix.needsUpdate = true
-    }, [])
+        ref.current.instanceMatrix.needsUpdate = true;
+    }, []);
 
     const geometry = new BoxGeometry();
 
     const normalMaterial = new MeshStandardMaterial({ color: "yellow" });
     const hoveredMaterial = new MeshStandardMaterial({ color: "magenta" });
-
 
     return (
         <group ref={groupRef}>
@@ -66,9 +71,14 @@ function createPositions(columnCount: number): [number, number, number][] {
     for (let x = -range; x < range; x++) {
         for (let y = -range; y < range; y++) {
             for (let z = -range; z < range; z++) {
-                const value4d = noise4D(x * noiseScale, y * noiseScale, z * noiseScale, w);
-                tempVec3.set(x, y, z)
-                const dist = tempVec3.distanceTo(centreVec3)
+                const value4d = noise4D(
+                    x * noiseScale,
+                    y * noiseScale,
+                    z * noiseScale,
+                    w
+                );
+                tempVec3.set(x, y, z);
+                const dist = tempVec3.distanceTo(centreVec3);
                 if (value4d > 0.2 && dist > 40) {
                     posns.push([x * cellSize, y * cellSize, z * cellSize]);
                 }

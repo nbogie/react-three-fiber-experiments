@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { calcWinState } from './calcWinState';
+import * as React from "react";
+import { calcWinState } from "./calcWinState";
 
-export type Player = 'X' | 'O';
+export type Player = "X" | "O";
 /** The state of any one position on the board.  "" means no mark has been played there, yet. */
-export type PosState = Player | '';
+export type PosState = Player | "";
 /** The index of any board position */
 export type PosIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 export type WinningLine = [PosIndex, PosIndex, PosIndex];
@@ -22,16 +22,20 @@ export type BoardState = [
     PosState,
     PosState,
     PosState,
-    PosState
+    PosState,
 ];
 
 export type WinState =
-    | { state: 'draw' }
-    | { state: 'not finished' }
-    | { state: 'won'; winner: Player, winningLines: WinningLine[] };
+    | { state: "draw" }
+    | { state: "not finished" }
+    | { state: "won"; winner: Player; winningLines: WinningLine[] };
 
-export type UseBoardReturn = [BoardState, (posIndex: PosIndex) => void, () => void, WinState];
-
+export type UseBoardReturn = [
+    BoardState,
+    (posIndex: PosIndex) => void,
+    () => void,
+    WinState,
+];
 
 /** Returns a tictactoe BoardState ready to be rendered, as well as a function that can be called to update the game board with a move.
  *
@@ -50,7 +54,7 @@ export function useTicTacToeBoard(): UseBoardReturn {
 }
 
 function makeInitialBoard(): BoardState {
-    return ['', '', '', '', '', '', '', '', ''];
+    return ["", "", "", "", "", "", "", "", ""];
 }
 
 export function useTicTacToeBoardWithInitial(
@@ -60,7 +64,7 @@ export function useTicTacToeBoardWithInitial(
 
     function applyMove(posIndex: PosIndex): void {
         const currVal = gameBoard[posIndex];
-        if (currVal !== '') {
+        if (currVal !== "") {
             console.log("can't apply move at taken space: " + posIndex);
             return;
         }
@@ -70,22 +74,19 @@ export function useTicTacToeBoardWithInitial(
     }
 
     function whoseTurnIsIt(): Player {
-        const countX = gameBoard.filter((p) => p === 'X').length;
-        const countO = gameBoard.filter((p) => p === 'O').length;
-        return countX <= countO ? 'X' : 'O';
+        const countX = gameBoard.filter((p) => p === "X").length;
+        const countO = gameBoard.filter((p) => p === "O").length;
+        return countX <= countO ? "X" : "O";
     }
     function reset() {
         setGameBoard(makeInitialBoard());
     }
-    const winState = calcWinState(gameBoard)
+    const winState = calcWinState(gameBoard);
     return [gameBoard, applyMove, reset, winState];
 }
 /** Same behaviour as useTicTacToeBoard but with a made-up game-in-progress, to help early UI prototyping. */
-export function useExampleTicTacToeBoard():
-    UseBoardReturn {
-    const exampleBoard: BoardState = ['X', 'O', '', 'X', '', 'O', 'X', '', ''];
+export function useExampleTicTacToeBoard(): UseBoardReturn {
+    const exampleBoard: BoardState = ["X", "O", "", "X", "", "O", "X", "", ""];
 
     return useTicTacToeBoardWithInitial(exampleBoard);
 }
-
-

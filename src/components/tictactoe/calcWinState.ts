@@ -1,5 +1,10 @@
-import { BoardState, WinState, WinningLine, Player, PosIndex } from './useTicTacToeBoard';
-
+import {
+    BoardState,
+    WinState,
+    WinningLine,
+    Player,
+    PosIndex,
+} from "./useTicTacToeBoard";
 
 export function calcWinState(board: BoardState): WinState {
     const winningLines: WinningLine[] = findWinningLines(board);
@@ -8,20 +13,24 @@ export function calcWinState(board: BoardState): WinState {
     if (firstWinningLine) {
         const [ix1, ix2, ix3] = firstWinningLine;
         const player = board[ix1] as Player; //TS doesn't know this is not ""
-        return { state: 'won', winner: player, winningLines };
+        return { state: "won", winner: player, winningLines };
     }
 
     if (boardIsFull(board)) {
-        return { state: 'draw' };
+        return { state: "draw" };
     }
 
-    return { state: 'not finished' };
+    return { state: "not finished" };
 }
-function findWinningLines(
-    board: BoardState
-): [PosIndex, PosIndex, PosIndex][] {
-    function lineIsWin([ixA, ixB, ixC]: [PosIndex, PosIndex, PosIndex]): boolean {
-        return board[ixA] !== '' && areAllEqual(board[ixA], board[ixB], board[ixC]);
+function findWinningLines(board: BoardState): [PosIndex, PosIndex, PosIndex][] {
+    function lineIsWin([ixA, ixB, ixC]: [
+        PosIndex,
+        PosIndex,
+        PosIndex,
+    ]): boolean {
+        return (
+            board[ixA] !== "" && areAllEqual(board[ixA], board[ixB], board[ixC])
+        );
     }
 
     const allLines: [PosIndex, PosIndex, PosIndex][] = [
@@ -37,7 +46,7 @@ function findWinningLines(
     return allLines.filter(lineIsWin);
 }
 function boardIsFull(board: BoardState): boolean {
-    return board.filter((posState) => posState === '').length === 0;
+    return board.filter((posState) => posState === "").length === 0;
 }
 function areAllEqual<T>(a: T, b: T, c: T): boolean {
     return a === b && a === c;
