@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import THREE from "three"
 export function Box(props: JSX.IntrinsicElements['mesh'] & { hoveredMaterial: any; normalMaterial: any; }) {
     const meshRef = useRef<THREE.Mesh>(null!);
     const [hovered, hover] = useState(false);
